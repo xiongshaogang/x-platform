@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xplatform.base.orgnaization.orgnaization.mybatis.dao.OrgMybatisDao">
+	<resultMap id="OrgTreeMap" type="OrgTreeVo">
+		<id column="ID" property="id" />
+		<result column="name" property="name" />
+		<result column="code" property="code" />
+		<result column="short_name" property="shortName" />
+		<result column="en_name" property="enName" />
+		<result column="type" property="type" />
+		<result column="telephone" property="telephone" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="fax" property="fax" />
+		<result column="post" property="post" />
+		<result column="description" property="description" />
+		<result column="icon_cls" property="iconCls" />
+		<result column="checked" property="checked" />
+		<result column="parent_id" property="parentId" />
+		<result column="is_leaf" property="isLeaf" />
+		<result column="level" property="level" />
+	</resultMap>
+	
+	<!-- 查询员工分配可控制的机构树 -->
+	<select id="queryOrgTreeByGrade" parameterType="Map" resultMap="OrgTreeMap" resultType="OrgTreeVo">
+		select dept.ID,dept.icon_cls,dept.is_leaf,dept.level,dept.tree_index,dept.address,dept.code,dept.description,dept.email,dept.en_name,
+		dept.fax,dept.name,dept.post,dept.short_name,dept.telephone,dept.type,dept.parent_id,
+		case when authority.ID is null then '0' else '1' end checked from t_org_orgnaization dept 
+		left join t_org_grade_authority authority on authority.type_id = dept.ID and authority.user_id = #{userId} and  authority.is_manage = '1'
+		where dept.parent_id=#{parentId} 
+	</select>
+	
+	<!-- 查询可控制机构树 -->
+	<select id="queryOrgTree" parameterType="Map" resultMap="OrgTreeMap" resultType="OrgTreeVo">
+		select dept.ID,dept.icon_cls,dept.is_leaf,dept.level,dept.tree_index,dept.address,dept.code,dept.description,dept.email,dept.en_name,
+		dept.fax,dept.name,dept.post,dept.short_name,dept.telephone,dept.type,dept.parent_id 
+		from t_org_orgnaization dept,t_org_grade_authority authority 
+		where authority.type_id = dept.id
+		 and authority.user_id = #{userId}  
+		 and authority.type = 'organization' 
+		 and dept.parent_id=#{parentId} 
+	</select>
+	
+	<!-- 查询员工分配部门机构树 -->
+	<select id="queryEmpOrgTree" parameterType="Map" resultMap="OrgTreeMap" resultType="OrgTreeVo">
+		select dept.ID,dept.icon_cls,dept.is_leaf,dept.level,dept.tree_index,dept.address,dept.code,dept.description,dept.email,dept.en_name,
+		dept.fax,dept.name,dept.post,dept.short_name,dept.telephone,dept.type,dept.parent_id,
+		case when empdept.ID is null then '0' else '1' end checked from t_org_orgnaization dept 
+		left join t_org_emp_dept empdept on empdept.org_id = dept.ID and empdept.emp_id = #{userId}
+		where dept.parent_id=#{parentId} 
+	</select>
+	
+</mapper>

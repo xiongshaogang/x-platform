@@ -1,0 +1,439 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/context/mytags.jsp"%>
+<%-- <t:base type="jquery,easyui,tools,DatePicker"></t:base> --%>
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+	<meta charset="utf-8" />
+	<title>登录页面</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- basic styles -->
+
+	<link href="plug-in/assets/css/bootstrap.min.css" rel="stylesheet" />
+<!-- 	<link rel="stylesheet" href="plug-in/assets/css/font-awesome.min.css" /> -->
+<link rel="stylesheet" href="plug-in/assets/css/font-awesome.css" />
+
+	<!--[if IE 7]>
+	<link rel="stylesheet" href="plug-in/assets/css/font-awesome-ie7.min.css" />
+	<![endif]-->
+
+	<!-- page specific plugin styles -->
+
+	<!-- fonts -->
+
+<!-- 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
+
+	<!-- ace styles -->
+
+	<link rel="stylesheet" href="plug-in/assets/css/ace.min.css" />
+	<link rel="stylesheet" href="plug-in/assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="plug-in/login/css/login.css" />
+	
+	<!-- RealPerson 验证码插件 -->
+	<link rel="stylesheet" href="plug-in/jquery-realperson/jquery.realperson.css" />
+	
+	
+
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="plug-in/assets/css/ace-ie.min.css" />
+	<![endif]-->
+
+	<!-- inline styles related to this page -->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+	<!--[if lt IE 9]>
+	<script src="plug-in/assets/js/html5shiv.js"></script>
+	<script src="plug-in/assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body class="login-layout">
+	<div class="main-container">
+		<div class="main-content">
+			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
+					<div class="login-container">
+						<div class="center">
+							<h1> <i class="fa fa-leaf green"></i>
+								<span class="red">UCG</span>
+								<span class="white">Platform</span>
+							</h1>
+							<h4 class="blue">&copy; UCG</h4>
+						</div>
+
+						<div class="space-6"></div>
+
+						<div class="position-relative">
+							<div id="login-box" class="login-box visible widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header blue lighter bigger"> <i class="fa fa-coffee green"></i>
+											请输入登录信息
+										</h4>
+
+										<div class="space-6"></div>
+
+										<form name="formLogin" id="formLogin" action="loginController.do?index" check="loginController.do?checkuser" method="post">
+											<input name="userKey" type="hidden" id="userKey" value="D1B5CC2FE46C4CC983C073BCA897935608D926CD32992B5900" />
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-awsm-icon-right">
+														<input id="userName" name="userName" type="text" class="form-control" placeholder="用户名" iscookie="true" />
+														<i class="fa fa-user"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-awsm-icon-right">
+														<input id="password" name="password" type="password" class="form-control" placeholder="密码" iscookie="true" />
+														<i class="fa fa-lock"></i>
+													</span>
+												</label>
+												<div id="isVerificationCode">
+													<label class="block clearfix">
+														<span class="input-group block input-icon input-awsm-icon-right">
+															<input type="text" class="form-control realPerson_u" id="realPerson_u" name="realPerson_u" placeholder="验证码">
+															<i class="fa fa-lock"></i>
+														</span>
+													</label>
+												</div>
+
+												<div class="space"></div>
+
+												<div class="clearfix">
+													<label class="inline">
+														<input id="on_off" type="checkbox" class="ace" checked="checked" />
+														<span class="lbl">记住我</span>
+													</label>
+
+													<button type="reset" style="float:right" class="btn btn-sm btn-grey">
+														<i class="fa fa-undo"></i>
+														重置
+													</button>
+													<button id="but_login" type="button" style="float:right;margin-right:10px;" class="btn btn-sm btn-primary">
+														<i class="fa fa-key"></i>
+														<span>登录</span>
+													</button>
+													<div id="errmsg_box" class="alert alert-danger" style="display:none;margin-top:10px;"></div>
+												</div>
+
+												<div class="space-4"></div>
+											</fieldset>
+										</form>
+
+										<!-- <div class="social-or-login center">
+											<span class="bigger-110">Or Login Using</span>
+										</div>
+
+										<div class="social-login center">
+											<a class="btn btn-primary">
+												<i class="fa fa-facebook"></i>
+											</a>
+
+											<a class="btn btn-info">
+												<i class="fa fa-twitter"></i>
+											</a>
+
+											<a class="btn btn-danger">
+												<i class="fa fa-google-plus"></i>
+											</a>
+										</div> -->
+									</div>
+									<!-- /widget-main -->
+
+									<div class="toolbar clearfix">
+										<div>
+											<a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
+												<i class="fa fa-arrow-left"></i>
+												忘记密码
+											</a>
+										</div>
+
+										<div>
+											<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+												注册
+												<i class="fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- /widget-body -->
+							</div>
+							<!-- /login-box -->
+
+							<div id="forgot-box" class="forgot-box widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header red lighter bigger">
+											<i class="fa fa-key"></i>
+											重置密码
+										</h4>
+
+										<div class="space-6"></div>
+										<p>输入邮箱以重置密码</p>
+
+										<form>
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-awsm-icon-right">
+														<input type="email" class="form-control" placeholder="邮箱" />
+														<i class="fa fa-envelope"></i>
+													</span>
+												</label>
+
+												<div class="clearfix">
+													<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+														<i class="fa fa-lightbulb"></i>
+														发送
+													</button>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+									<!-- /widget-main -->
+
+									<div class="toolbar center">
+										<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+											返回登录
+											<i class="fa fa-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+								<!-- /widget-body -->
+							</div>
+							<!-- /forgot-box -->
+
+							<div id="signup-box" class="signup-box widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header green lighter bigger">
+											<i class="fa fa-group blue"></i>
+											新用户注册
+										</h4>
+
+										<div class="space-6"></div>
+										<p>请输入您的信息:</p>
+
+										<form>
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-awsm-icon-right">
+														<input id="email" name="email" type="email" class="form-control" placeholder="邮箱" />
+														<i class="fa fa-envelope"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-awsm-icon-right">
+														<input id="loginName" name="loginName" type="text" class="form-control" placeholder="用户名" />
+														<i class="fa fa-user"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-awsm-icon-right">
+														<input id="loginPassword" name="loginPassword" value="" type="password" class="form-control" placeholder="密码" onKeyUp="checkPsdStrong(this, this.value)" onBlur="checkPsdStrong(this, this.value)" />
+														<i class="fa fa-lock"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-awsm-icon-right">
+														<input id="loginPassword1" name="loginPassword1" type="password" class="form-control" placeholder="重复密码" />
+														<i class="fa fa-retweet"></i>
+													</span>
+												</label>
+
+												<label class="block">
+													<input id="agreedCheckbox" name="agreedCheckbox" type="checkbox" onclick="aav();" class="ace" />
+													<span class="lbl">
+														我接受
+														<a href="#">用户协议</a>
+													</span>
+												</label>
+
+												<div class="space-24"></div>
+
+												<div class="clearfix">
+													<button type="reset" class="width-30 pull-left btn btn-sm">
+														<i class="fa fa-refresh"></i>
+														重置
+													</button>
+
+													<button id="zhuce" onclick="registered();" type="button" class="width-65 pull-right btn btn-sm btn-success">
+														注册
+														<i class="fa fa-arrow-right fa fa-on-right"></i>
+													</button>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+
+									<div class="toolbar center">
+										<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+											<i class="fa fa-arrow-left"></i>
+											返回登录
+										</a>
+									</div>
+								</div>
+								<!-- /widget-body -->
+							</div>
+							<!-- /signup-box -->
+						</div>
+						<!-- /position-relative -->
+					</div>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+	</div>
+	<div id="t1"></div>
+	<!-- /.main-container -->
+
+	<!-- basic scripts -->
+	<script type="text/javascript" src="plug-in/jquery/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="plug-in/jquery/jquery.cookie.js"></script>
+	<script type="text/javascript" src="plug-in/assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="plug-in/assets/js/bootbox.js"></script>
+	<script type="text/javascript" src="plug-in/login/js/jquery-jrumble.js"></script>
+	<script type="text/javascript" src="plug-in/login/js/jquery.tipsy.js"></script>
+	<script type="text/javascript" src="plug-in/login/js/iphone.check.js"></script>
+	<script type="text/javascript" src="plug-in/login/js/login.js"></script>
+	<script src="plug-in/tools/main.js"></script>
+	
+	<script type="text/javascript" src="plug-in/Validform/js/form.js"></script>
+	<script type="text/javascript" src="plug-in/Validform/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="plug-in/Validform/js/Validform_Datatype.js"></script>
+	<script type="text/javascript" src="plug-in/Validform/js/datatype.js"></script>
+	<script type="text/javascript" src="plug-in/Validform/plugin/jqtransform/jquery.jqtransform.js"></script>
+	<script type="text/javascript" src="plug-in/Validform/plugin/passwordStrength/passwordStrength-min.js"></script>
+	
+	<!-- Tools -->
+	<link rel="stylesheet" href="plug-in/tools/css/common.css" type="text/css"></link>
+	<link rel="stylesheet" href="plug-in/yitip/css/jquery.yitip.css" type="text/css"></link>
+	<link rel="stylesheet" href="plug-in/Validform/css/divfrom.css" type="text/css" />
+	<link rel="stylesheet" href="plug-in/Validform/css/style.css" type="text/css"/>
+	<link rel="stylesheet" href="plug-in/Validform/css/tablefrom.css" type="text/css"/>
+	<link rel="stylesheet" href="plug-in/Validform/plugin/jqtransform/jqtransform.css" type="text/css" />
+	<!--<script src="plug-in/lhgDialog/lhgdialog.min.js"></script>-->
+	<script src="plug-in/tools/uuid.js"></script>
+	<script src="plug-in/yitip/js/jquery.yitip.js"></script>
+	<script src="plug-in/tools/jquery.json.js"></script>
+	
+	<!-- RealPerson 验证码插件 -->
+	<script type="text/javascript" src="plug-in/jquery-realperson/jquery.realperson.min.js"></script>
+	
+<!-- 	<script type="text/javascript" src="plug-in/easyui/jquery.easyui.min.1.3.2.js"></script> -->
+<!-- 	<script src="plug-in/easyui/extends/easyuiextend.js"></script> -->
+<!-- 	<script src="plug-in/easyui/locale/easyui-lang-zh_CN.js"></script> -->
+<!-- 	<link rel="stylesheet" href="plug-in/easyui/themes/gray/easyui.css" /> -->
+	<script src="plug-in/tools/uuid.js"></script>
+	<script src="plug-in/tools/curdtools.js"></script>
+	<!--[if lt IE 9]>
+	<script src="plug-in/login/js/html5.js"></script>
+	<![endif]-->
+	<!--[if lt IE 7]>
+	<script src="plug-in/login/js/iepng.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	EvPNG.fix('div, ul, img, li, input'); //EvPNG.fix('包含透明PNG图片的标签'); 多个标签之间用英文逗号隔开。
+	</script>
+	<![endif]-->
+	<!--[if !IE]>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+	<! <![endif]-->
+
+	<!--[if IE]>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<![endif]-->
+
+	<!--[if !IE]>
+	<script type="text/javascript">
+			window.jQuery || document.write("<script src='plug-in/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");</script>
+
+ 	<![endif]-->
+
+	<!--[if IE]>
+	<script type="text/javascript">
+	 window.jQuery || document.write("<script src='plug-in/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");</script>
+	<![endif]-->
+
+	<script type="text/javascript">
+		if("ontouchend" in document) document.write("<script src='plug-in/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+	</script>
+
+	<!-- inline scripts related to this page -->
+	<script type="text/javascript">
+		$(function(){
+			document.getElementById('zhuce').disabled = true;
+			
+// 			bootbox.alert(isIE(9)+"");
+		});
+		function show_box(id) {
+		 jQuery('.widget-box.visible').removeClass('visible');
+		 jQuery('#'+id).addClass('visible');
+		}
+		
+		function aav(){
+			var check = document.getElementById("agreedCheckbox").checked;
+			if(check){
+				document.getElementById('zhuce').disabled = false;
+			}else{
+				document.getElementById('zhuce').disabled = true;
+			}
+		}
+		function registered(){
+			var email = $("#email").val();
+			var loginName = $("#loginName").val();
+			var loginPassword = $("#loginPassword").val();
+			var loginPassword1 = $("#loginPassword1").val();
+			if($(".pst-strong").data("psd_level")<=1){
+				bootbox.alert("密码必须为6-32位,并且包含数字、字母、符号任意两种组合");
+				$("#loginPassword").focus();
+				return;
+			}
+			if(email == ''){
+				bootbox.alert('邮箱不能为空');
+				$("#email").focus();
+				return;
+			}
+			if(loginName == ''){
+				bootbox.alert('用户名不能为空');
+				$("#loginName").focus();
+				return;
+			}
+			if(loginPassword == ''){
+				bootbox.alert('密码不能为空');
+				$("#loginPassword").focus();
+				return;
+			}
+			if(loginPassword1 != loginPassword){
+				bootbox.alert('密码不一致,请重新输入');
+				$("#loginPassword1").focus();
+				return;
+			}
+			//var url = 'memberController.do?registered&email='+email+'&loginName='+loginName+'&loginPassword='+loginPassword;
+			//createwindow("数据字典项信息维护",url,1000,500,null,{optFlag:'registered'});
+			
+			$.ajax({
+				url:"memberController.do?registered",
+				async:false,
+				type:'post',
+				data:{email:email,loginName:loginName,loginPassword:loginPassword},
+				success: function(data){
+					window.open('memberController.do?afterRegistered&email='+email,'_blank','fullscreen=yes'); 
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) { 
+                    bootbox.alert(errorThrown); 
+            	} 
+			});
+		}
+	</script>
+</body>
+</html>

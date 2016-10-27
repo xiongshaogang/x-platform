@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xplatform.base.system.attachment.mybatis.dao.AttachMybatisDao">
+	
+	<select id="queryAttachVoListByAdmin" parameterType="Map" resultType="AttachVo">
+		select
+			ID id,
+			name name,
+			fileFlag fileFlag,
+			typeName typeName,
+			attach_size_str attachSizeStr,
+			attach_type attachType,
+			attach_content_type attachContentType,
+			ext ext,
+			remark remark,
+			relative_path relativePath,
+			absolute_path absolutePath,
+			parentTypeId parentTypeId,
+			create_time createTime,
+			update_time updateTime,
+			downloadAuthority downloadAuthority,
+			editAuthority editAuthority,
+			deleteAuthority deleteAuthority,
+			viewAuthority viewAuthority,
+			thumbnail_ab_path thumbnailAbPath,
+			thumbnail_re_path thumbnailRePath,
+			storage_type storageType
+		FROM
+		(
+		SELECT 
+			a.ID,
+			attach_name as name,
+			1 as fileFlag,
+			'' as typeName,
+			attach_size_str,
+			attach_type,
+			attach_content_type,
+			ext,
+			attach_remark as remark,
+			relative_path,
+			absolute_path,
+			(SELECT type_entity FROM t_sys_data where attach_entity = a.id) as parentTypeId,
+			a.create_time,
+			a.update_time,
+			'Y' as downloadAuthority,
+			'Y' as editAuthority,
+			'Y' as deleteAuthority,
+			'Y' as viewAuthority,
+			thumbnail_ab_path,
+			thumbnail_re_path,
+			storage_type 
+		FROM t_sys_attachment a
+		
+		UNION
+		
+		SELECT 
+			ID,
+			name,
+			0 as fileFlag,
+			'' as typeName,
+			null as attach_size_str,
+			null as attach_type,
+			'' as attach_content_type,
+			null as ext,
+			remark,
+			null as relative_path,
+			null as absolute_path,
+			parent_id as parentTypeId,
+			create_time,
+			update_time,
+			null as downloadAuthority,
+			null as editAuthority,
+			null as deleteAuthority,
+			null as viewAuthority,
+			null as thumbnail_ab_path,
+			null as thumbnail_re_path,
+			null as storage_type 
+		FROM t_sys_type t where t.type='file'
+		) b where 1 = 1
+		<if test="fileFlag != null">
+			and b.fileFlag = #{fileFlag}
+		</if>
+		<if test="attachContentType != null">
+			and b.attach_content_type = #{attachContentType}
+		</if>
+		<if test="attachType != null">
+			and b.attach_type = #{attachType}
+		</if>
+		<if test="typeId != null">
+			and b.parentTypeId=#{typeId}
+		</if>
+		order by b.fileFlag asc
+		<choose>
+			<when test="order != null and sort!=null">
+				,b.${sort} ${order}
+			</when>
+			<otherwise>
+				,b.create_time desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="queryAttachVoList" parameterType="Map" resultType="AttachVo">
+		select
+			ID id,name name ,fileFlag fileFlag,typeName typeName,attach_size_str attachSizeStr,attach_type attachType,iconType,attach_content_type attachContentType,
+			ext ext,remark remark,relative_path relativePath,absolute_path absolutePath,parentTypeId parentTypeId,create_time createTime,
+			update_time updateTime,downloadAuthority downloadAuthority,editAuthority editAuthority,deleteAuthority deleteAuthority,viewAuthority viewAuthority,
+			thumbnail_ab_path thumbnailAbPath,thumbnail_re_path thumbnailRePath,storage_type storageType
+		FROM
+		(
+		<!-- *********************** 获取有权看到的文件 *********************** -->
+		<!-- 通过角色文件夹授权 -->
+		SELECT 
+			a.ID,attach_name as name,1 as fileFlag,t.name as typeName,attach_size_str,attach_type,iconType,attach_content_type,
+			ext,attach_remark as remark,relative_path,absolute_path,null as parentTypeId,
+			a.create_time,a.update_time,null as
+			downloadAuthority,null as editAuthority,
+			null as deleteAuthority,null as
+			viewAuthority,thumbnail_ab_path,thumbnail_re_path,storage_type
+		FROM
+		t_sys_attachment as a,
+		t_sys_type as t,
+		(SELECT 
+			d1.attach_entity,d1.type_entity FROM t_sys_data as d1 WHERE 1=1
+		<if test="typeId != null">
+			and d1.type_entity=#{typeId}
+		</if>
+		)as d,
+		(SELECT 
+			fr1.ID,fr1.role_entity,fr1.type_entity FROM t_sys_filetype_role as fr1 WHERE fr1.isManage='1'
+		<if test="typeId != null">
+			and fr1.type_entity=#{typeId}
+		</if>
+		) as fr
+		WHERE fr.type_entity=d.type_entity and d.attach_entity=a.ID and fr.type_entity=t.ID
+		<if test="roleIds != null">
+			and fr.role_entity in <foreach separator="," collection="roleIds" item="item" close=")" open="(">${item}</foreach>
+		</if>
+		
+		<!-- 通过角色文件授权  -->
+		UNION
+		
+		SELECT 
+			a.ID,attach_name as name,1 as fileFlag,t.name as typeName,attach_size_str,attach_type,iconType,attach_content_type,
+			ext,attach_remark as remark,relative_path,absolute_path,null as parentTypeId,
+			a.create_time,a.update_time,null as
+			downloadAuthority,null as editAuthority,
+			null as deleteAuthority,null as
+			viewAuthority,thumbnail_ab_path,thumbnail_re_path,storage_type
+		FROM
+		t_sys_attachment as a,
+		t_sys_type as t,
+		(SELECT 
+			d1.id,d1.attach_entity,d1.type_entity FROM t_sys_data as d1 WHERE 1=1
+		<if test="typeId != null">
+			and d1.type_entity=#{typeId}
+		</if>
+		)as d,
+		(SELECT 
+			fr1.ID,fr1.role_entity,fr1.data_entity FROM t_sys_file_role as fr1
+		<if test="roleIds != null">
+			WHERE fr1.role_entity in <foreach separator="," collection="roleIds" item="item" close=")" open="(">${item}</foreach>
+		</if>
+		) as fr
+		WHERE a.id=d.attach_entity AND d.id=fr.data_entity
+		<if test="typeId != null">
+			and t.id=#{typeId}
+		</if>
+		UNION
+
+		<!-- *********************** 获取有权看到的文件夹 *********************** -->
+		<!-- 通过角色授权 -->
+		SELECT 
+			t.ID,name,0 as fileFlag,'' as typeName,null as attach_size_str,null as attach_type,null as iconType,null as attach_content_type,
+			null as ext,remark,null as relative_path,null as absolute_path,t.parent_id as parentTypeId,
+			t.create_time,t.update_time,null as downloadAuthority,null as editAuthority,
+			null as deleteAuthority,null as
+			viewAuthority,null as thumbnail_ab_path,null as thumbnail_re_path,null as storage_type
+		FROM t_sys_filetype_role as fr,
+		(SELECT 
+			t1.ID,t1.name,t1.remark,t1.create_time,t1.update_time,t1.parent_id 
+		FROM t_sys_type as t1 WHERE 1=1
+		<if test="typeId != null">
+			and t1.parent_id=#{typeId}
+		</if>
+		) as t
+		WHERE fr.type_entity=t.ID
+		<if test="roleIds != null">
+			and fr.role_entity in <foreach separator="," collection="roleIds" item="item" close=")" open="(">${item}</foreach>
+		</if>
+		) b WHERE 1=1
+		<if test="fileFlag != null">
+			and b.fileFlag = #{fileFlag}
+		</if>
+		<if test="attachContentType != null">
+			and b.attach_content_type = #{attachContentType}
+		</if>
+		<if test="attachType != null">
+			and b.attach_type = #{attachType}
+		</if>
+		order by b.fileFlag asc,b.create_time desc
+	</select>
+	
+	<select id="queryFileRoleAttachVoList" parameterType="Map" resultType="AttachVo">
+		SELECT 
+			a.ID,attach_name as name,1 as fileFlag,t.name as typeName,attach_size_str,attach_type,iconType,attach_content_type,
+			ext,attach_remark as remark,relative_path,absolute_path,null as parentTypeId,
+			a.create_time,a.update_time,null as
+			downloadAuthority,null as editAuthority,
+			null as deleteAuthority,null as
+			viewAuthority,thumbnail_ab_path,thumbnail_re_path,storage_type
+		FROM
+		t_sys_attachment as a,
+		t_sys_type as t,
+		(SELECT 
+			d1.id,d1.attach_entity,d1.type_entity 
+		FROM t_sys_data as d1 WHERE 1=1
+		<if test="typeId != null">
+			and d1.type_entity=#{typeId}
+		</if>
+		)as d,
+		(SELECT 
+			fr1.ID,fr1.role_entity,fr1.data_entity 
+		FROM t_sys_file_role as fr1
+		<if test="roleIds != null">
+			WHERE fr1.role_entity in <foreach separator="," collection="roleIds" item="item" close=")" open="(">${item}</foreach>
+		</if>
+		) as fr
+		WHERE a.id=d.attach_entity AND d.id=fr.data_entity
+		<if test="typeId != null">
+			and t.id=#{typeId}
+		</if>
+	</select>
+
+	<select id="queryAuthority" parameterType="Map" resultType="AttachVo">
+		<!-- 通过角色授权 -->
+		SELECT 
+			r.opt_code
+		FROM
+		t_org_resource r,
+		(SELECT 
+			fra1.role_entity,fra1.resource_entity 
+		FROM t_sys_filetype_role_authority as fra1 WHERE 1=1
+		<if test="typeId != null">
+			and fra1.type_entity=#{typeId}
+		</if>
+		)as fra
+		WHERE r.ID=fra.resource_entity
+		<if test="roleIds != null">
+			and fra.role_entity in <foreach separator="," collection="roleIds" item="item" close=")" open="(">${item}</foreach>
+		</if>
+	</select>
+
+	<sql id="attachVoColumn">
+	  id,
+	  name,
+	  businessKey,
+	  businessType,
+	  businessExtra,
+	  otherKey,
+	  otherKeyType,
+	  fileFlag,
+	  typeName,
+	  attachSize,
+	  attachSizeStr,
+	  attachType,
+	  iconType,
+	  attachContentType,
+	  storageType,
+	  ext,
+	  remark,
+	  relativePath,
+	  absolutePath,
+	  thumbnailAbPath,
+	  thumbnailRePath,
+	  parentTypeId,
+	  createTime,
+	  updateTime,
+	  createUserName,
+	  createUserId,
+	  updateUserName,
+	  updateUserId,
+	  downloadAuthority,
+	  editAuthority,
+	  deleteAuthority,
+	  viewAuthority
+	</sql>
+	<!-- 查询个人类别下的文件和文件夹 -->
+	<select id="queryPersonalAttachs" parameterType="Map" resultType="AttachVo">
+		SELECT
+			*
+		FROM
+		(
+			<!-- *********************** 获取有权看到的文件夹 *********************** -->
+			SELECT 
+				id,name,isPublic,orgId,0 as fileFlag,name typeName,parentId parentTypeId,null attachSizeStr,null attachType,'folder' iconType,null attachContentType,
+				null ext,null relativePath,null absolutePath,null storageType,null thumbnailAbPath,null thumbnailRePath,
+				createTime,updateTime,createUserId,createUserName
+			FROM t_sys_type as t
+			WHERE 1=1
+			AND type='personal' AND createUserId=#{userId}
+			<choose>
+				<when test="parentTypeId != null and parentTypeId !=''">
+					AND parentId=#{parentTypeId}
+				</when>
+				<otherwise>
+					AND parentId is null
+				</otherwise>
+			</choose>
+			
+			UNION
+			
+			<!-- *********************** 获取有权看到的文件 *********************** -->
+			SELECT 
+				id,attachName name,null isPublic,null orgId,1 as fileFlag,null typeName,typeEntity parentTypeId,attachSizeStr,attachType,iconType,attachContentType,
+				ext,relativePath,absolutePath,storageType,thumbnailAbPath,thumbnailRePath,createTime,updateTime,createUserId,createUserName
+			FROM
+			t_sys_attachment as a
+			WHERE
+			<choose>
+				<when test="parentTypeId != null and parentTypeId !=''">
+					typeEntity=#{parentTypeId}
+				</when>
+				<otherwise>
+					typeEntity is null
+				</otherwise>
+			</choose>
+		) b WHERE 1=1
+		<if test="fileFlag != null">
+			AND b.fileFlag = #{fileFlag}
+		</if>
+		<if test="attachContentType != null and attachContentType!=''">
+			AND b.attachContentType = #{attachContentType}
+		</if>
+		<if test="attachType != null and attachType !=''">
+			AND b.attachType = #{attachType}
+		</if>
+		ORDER BY b.fileFlag asc,b.updateTime desc
+	</select>
+	
+	
+	<!-- 查询传阅型产生的文件 -->
+	<select id="queryNotifyTypeAttachs" parameterType="Map" resultType="AttachVo">
+		SELECT
+			a.id,attachName name,1 as fileFlag,null typeName,typeEntity parentTypeId,attachSizeStr,attachType,iconType,attachContentType,
+			ext,relativePath,absolutePath,storageType,thumbnailAbPath,thumbnailRePath,a.createTime,a.updateTime,a.createUserId,a.createUserName
+		FROM
+		t_sys_attachment a 
+		LEFT JOIN t_sys_message_receive b on a.otherKeyType = b.sourceBusinessType AND a.otherKey=b.sourceId 
+		WHERE b.sourceType='circulate' AND b.receiveId=#{userId}
+		<if test="formCodes != null and formCodes!=''"> 
+		AND a.otherKeyType in <foreach separator="," collection="formCodes" item="item" close=")" open="(">${item}</foreach>
+		</if>
+		ORDER BY a.updateTime desc
+	</select>
+	
+	<!-- 查询公司栏目下第一级文件夹  -->
+	<select id="queryRootOrgAttachs" parameterType="Map" resultType="AttachVo">
+		SELECT * FROM
+		(
+			SELECT 
+				id,name,0 as fileFlag,code,isPublic,orgId,name typeName,parentId parentTypeId,null attachSizeStr,null attachType,CASE isPublic WHEN 1 THEN 'publicFolder' WHEN 0 THEN 'folder' END iconType,
+				null attachContentType,null ext,null relativePath,null absolutePath,null storageType,null thumbnailAbPath,null thumbnailRePath,
+				createTime,updateTime,createUserId,createUserName
+			FROM t_sys_type as t
+			WHERE level='2' AND parentId=#{parentTypeId} AND type='org' AND (code=#{dataOrgId} OR createUserId=#{userId})
+			
+			UNION
+			
+			SELECT 
+				t.id,name,0 as fileFlag,code,isPublic,orgId,name typeName,t.parentId parentTypeId,null attachSizeStr,null attachType,'folder' iconType,
+				null attachContentType,null ext,null relativePath,null absolutePath,null storageType,null thumbnailAbPath,null thumbnailRePath,
+				t.createTime,t.updateTime,t.createUserId,t.createUserName
+			FROM t_sys_type t,
+			t_sys_filetype_user fu 
+			WHERE t.id=fu.type_entity AND t.parentId=#{parentTypeId} AND fu.user_entity=#{userId}
+			
+			<if test="orgIds != null and orgIds!=''">
+			UNION
+			
+			SELECT 
+				t.id,name,0 as fileFlag,code,isPublic,orgId,name typeName,t.parentId parentTypeId,null attachSizeStr,null attachType,'folder' iconType,
+				null attachContentType,null ext,null relativePath,null absolutePath,null storageType,null thumbnailAbPath,null thumbnailRePath,
+				t.createTime,t.updateTime,t.createUserId,t.createUserName
+			FROM t_sys_type t,
+			t_sys_filetype_org fo 
+			WHERE t.id=fo.type_entity AND t.parentId=#{parentTypeId} AND fo.orgnaization_entity in <foreach separator="," collection="orgIds" item="item" close=")" open="(">${item}</foreach>
+			</if>
+		) a
+		ORDER BY a.updateTime desc
+	</select>
+	
+	<!-- 查询公司栏目下后级文件夹和文件  -->
+	<select id="queryTypeOrgAttachs" parameterType="Map" resultType="AttachVo">
+		SELECT * FROM
+		(
+			<!-- *********************** 获取有权看到的文件夹 *********************** -->
+			SELECT 
+				id,name,0 as fileFlag,isPublic,orgId,name typeName,parentId parentTypeId,null attachSizeStr,null attachType,'folder' iconType,null attachContentType,
+				null ext,null relativePath,null absolutePath,null storageType,null thumbnailAbPath,null thumbnailRePath,
+				createTime,updateTime,createUserId,createUserName
+			FROM t_sys_type as t
+			WHERE type='org' AND parentId=#{parentTypeId} 
+			
+			UNION
+			
+			<!-- *********************** 获取有权看到的文件 *********************** -->
+			SELECT 
+				id,attachName name,1 as fileFlag,null isPublic,null orgId,null typeName,typeEntity parentTypeId,attachSizeStr,attachType,iconType,attachContentType,
+				ext,relativePath,absolutePath,storageType,thumbnailAbPath,thumbnailRePath,createTime,updateTime,createUserId,createUserName
+			FROM
+			t_sys_attachment as a
+			WHERE typeEntity=#{parentTypeId} 
+		) temp
+		ORDER BY temp.fileFlag asc,temp.updateTime desc
+	</select>
+	<select id="queryUploadAttach" parameterType="Map" resultType="AttachVo">
+		SELECT
+		a.*,a.attachName name,1 as fileFlag
+		FROM
+		t_sys_attachment a 
+		WHERE 1=1
+		<if test="typeEntity != null and typeEntity!=''">
+			and a.typeEntity =#{typeEntity}
+		</if>
+		<if test="businessKey != null and businessKey!=''">
+			and a.businessKey =#{businessKey}
+		</if>
+		<if test="businessType != null and businessType!=''">
+			and a.businessType =#{businessType}
+		</if>
+		<if test="businessExtra != null and businessExtra!=''">
+			and a.businessExtra =#{businessExtra}
+		</if>
+		<if test="otherKey != null and otherKey!=''">
+			and a.otherKey =#{otherKey}
+		</if>
+		<if test="otherKeyType != null and otherKeyType!=''">
+			and a.otherKeyType =#{otherKeyType}
+		</if>
+		<if test="attachType != null and attachType!=''">
+			and a.attachType =#{attachType}
+		</if>
+		<if test="createUserId != null and createUserId!=''">
+			and a.createUserId =#{createUserId}
+		</if>
+		order by
+		<choose>
+			<when test="order != null and sort!=null">
+				a.${sort} ${order}
+			</when>
+			<otherwise>
+				a.updateTime desc,a.createTime desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

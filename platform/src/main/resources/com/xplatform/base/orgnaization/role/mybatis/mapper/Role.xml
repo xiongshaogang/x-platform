@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xplatform.base.orgnaization.role.mybatis.dao.RoleMybatisDao">
+	<resultMap id="RoleMap" type="RoleVo">
+		<id column="ID" property="id" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="flag" property="flag" />
+		<result column="description" property="description" />
+		<result column="allowDelete" property="allowDelete" />
+		<result column="allowEdit" property="allowEdit" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+	
+	<select id="queryAuthorityRoleByPage" parameterType="Page" resultMap="RoleMap">
+		select r.id,r.name,r.code,r.description,r.flag,r.allow_delete allowDelete,r.allow_edit allowEdit,r.create_time createTime from t_org_role r where 
+		1=1
+		<if test="parameter.roleIds !=null">
+		   and r.id in <foreach separator=","	collection="parameter.roleIds" item="item" close=")" open="(">${item}</foreach>
+		</if>
+		<if test="parameter.roleIds ==null">
+		  and 1 <![CDATA[<>]]> 1
+		</if>
+		<!-- 查询条件 -->
+		<if test="parameter.name != null and parameter.name !=''">
+          AND  UPPER(r.name) LIKE '%${parameter.name}%'
+		</if>
+		<if test="parameter.code != null and parameter.code !=''">
+          AND  UPPER(r.code) LIKE '%${parameter.code}%'
+		</if>
+		ORDER BY ${orderBy} ${order} 
+	</select>
+	
+</mapper>

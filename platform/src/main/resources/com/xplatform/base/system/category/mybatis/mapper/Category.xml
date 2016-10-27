@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xplatform.base.system.type.mybatis.dao.TypeMybatisDao">
+	<resultMap id="TypeTreeMap" type="TypeTreeVo">
+		<id column="ID" property="id" />
+		<result column="name" property="name" />
+		<result column="code" property="code" />
+		<result column="type" property="sysType" />
+		<result column="remark" property="remark" />
+		<result column="icon_cls" property="iconCls" />
+		<result column="checked" property="checked" />
+		<result column="parent_id" property="parentId" />
+		<result column="is_leaf" property="isLeaf" />
+		<result column="level" property="level" />
+	</resultMap>
+	<!-- 查询分配系统类型 -->
+	<select id="queryTypeTree" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id 
+		from t_sys_type type,t_sys_type_user typeUser 
+		where typeUser.type_id = type.id
+		 and typeUser.user_id = #{userId}  
+		 and type.parent_id = #{parentId} 
+	    UNION
+		 <!-- 用户角色授权 -->
+		 select type1.ID,type1.icon_cls,type1.is_leaf,type1.level,type1.tree_index,type1.code,type1.remark,type1.name,type1.type,type1.parent_id
+		 from t_sys_type type1, (select ur.role_id role_id from t_org_user_role ur where ur.user_id=#{userId}) userRole1, t_sys_type_role tr
+		 where tr.role_id = userRole1.role_id
+		 and type1.id = tr.type_id
+		 and type1.parent_id = #{parentId}
+	</select>
+	
+	<!-- 根据类型、用户权限查询系统类型 -->
+	<select id="queryTypeRoleTreeBySysTypeList" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id 
+		from t_sys_type type,t_sys_type_user typeUser 
+		where typeUser.type_id = type.id
+		 and typeUser.user_id = #{userId}  
+		 and type.type = #{sysType} 
+		 <!-- 用户直接授权 -->
+		 select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id 
+		  from t_sys_type type,t_sys_type_user typeUser where typeUser.type_id = type.id and typeUser.user_id = #{userId} and type.type = #{sysType} 
+		 UNION
+		 <!-- 用户角色授权 -->
+		 select type1.ID,type1.icon_cls,type1.is_leaf,type1.level,type1.tree_index,type1.code,type1.remark,type1.name,type1.type,type1.parent_id
+		 from t_sys_type type1, (select ur.role_id role_id from t_org_user_role ur where ur.user_id=#{userId}) userRole1, t_sys_type_role tr
+		 where tr.role_id = userRole1.role_id
+		 and type1.id = tr.type_id
+	</select>
+	
+	<!-- 根据类型、用户权限查询系统类型 -->
+	<select id="queryTypeRoleTreeBySysTypeTree" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id 
+		from t_sys_type type,t_sys_type_user typeUser 
+		where typeUser.type_id = type.id
+		 and typeUser.user_id = #{userId}  
+		 and type.type = #{sysType} 
+		 and type.parent_id = #{parentId}
+		 UNION
+		 <!-- 用户直接授权 -->
+		 select type1.ID,type1.icon_cls,type1.is_leaf,type1.level,type1.tree_index,type1.code,type1.remark,type1.name,type1.type,type1.parent_id 
+		  from t_sys_type type1,t_sys_type_user typeUser 
+		  where typeUser.type_id = type1.id 
+		  and typeUser.user_id = #{userId} 
+		  and type1.type = #{sysType} 
+		  and type1.parent_id = #{parentId}
+		 UNION
+		 <!-- 用户角色授权 -->
+		 select type2.ID,type2.icon_cls,type2.is_leaf,type2.level,type2.tree_index,type2.code,type2.remark,type2.name,type2.type,type2.parent_id
+		 from t_sys_type type2, (select ur.role_id role_id from t_org_user_role ur where ur.user_id=#{userId}) userRole1, t_sys_type_role tr
+		 where tr.role_id = userRole1.role_id
+		 and type2.id = tr.type_id
+		 and type2.parent_id = #{parentId}
+	</select>
+	
+	<!-- 查询员用户分配系统类型  -->
+	<select id="queryUserTypeTree" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id,
+		case when typeUser.ID is null then '0' else '1' end checked from t_sys_type type 
+		left join t_sys_type_user typeUser on typeUser.type_id = type.id and typeUser.user_id = #{userId} and  typeUser.ismanage = '1'
+		where type.parent_id=#{parentId} 
+	</select>
+	
+	<!-- 根据用户权限分页查询系统类型  -->
+	<select id="findByPage" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id 
+		from t_sys_type type, t_sys_type_user typeUser
+		where typeUser.type_id = type.id
+		 and typeUser.user_id = #{userId}  
+		 and type.parent_id = #{parentId}
+		UNION
+		 <!-- 用户角色授权 -->
+		 select type1.ID,type1.icon_cls,type1.is_leaf,type1.level,type1.tree_index,type1.code,type1.remark,type1.name,type1.type,type1.parent_id
+		 from t_sys_type type1, (select ur.role_id role_id from t_org_user_role ur where ur.user_id=#{userId}) userRole1, t_sys_type_role tr
+		 where tr.role_id = userRole1.role_id
+		 and type1.id = tr.type_id 
+		 and type1.parent_id = #{parentId}
+	</select>
+	
+	<select id="queryUserFileTypeTree" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id,
+		case when (fu.user_entity is not null and fu.isManage='1') THEN '1' else '0' end as checked
+		from t_sys_type type
+		left join t_sys_filetype_user fu ON fu.type_entity=type.ID and fu.user_entity=#{userId}
+		 where type.parent_id=#{parentId}
+	</select>
+	
+	<select id="queryUserFileTypeRoot" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id,
+		case when (fu.user_entity is not null and fu.isManage='1') THEN '1' else '0' end as checked
+		from t_sys_type type
+		left join t_sys_filetype_user fu ON fu.type_entity=type.ID and fu.user_entity=#{userId}
+		 where type.ID=#{typeId}
+	</select>
+	
+	
+	<select id="queryRoleFileTypeTree" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id,
+		case when (fr.role_entity is not null and fr.isManage='1') THEN '1' else '0' end as checked
+		from t_sys_type type
+		left join t_sys_filetype_role fr ON fr.type_entity=type.ID and fr.role_entity=#{roleId}
+		 where type.parent_id=#{parentId}
+	</select>
+	
+	<select id="queryRoleFileTypeRoot" parameterType="Map" resultMap="TypeTreeMap" resultType="TypeTreeVo">
+		select type.ID,type.icon_cls,type.is_leaf,type.level,type.tree_index,type.code,type.remark,type.name,type.type,type.parent_id,
+		case when (fr.role_entity is not null and fr.isManage='1') THEN '1' else '0' end as checked
+		from t_sys_type type
+		left join t_sys_filetype_role fr ON fr.type_entity=type.ID and fr.role_entity=#{roleId}
+		 where type.ID=#{typeId}
+	</select>
+	
+	<!-- *********************** 获取有权看到的文件夹 *********************** -->
+	<select id="queryViewableTypeTree" parameterType="Map" resultMap="TypeTreeMap">
+		<!-- 通过用户授权 -->
+		SELECT t.ID,t.name,t.remark,t.type,t.code,t.icon_cls,t.parent_id,t.level,t.tree_index,t.is_leaf
+		FROM t_sys_filetype_user as fu,t_sys_type as t
+		WHERE
+		1=1
+		<if test="userId != null">
+			and fu.user_entity=#{userId}
+		</if>
+		<if test="typeId != null">
+			and t.parent_id = #{typeId}
+		</if>
+		and t.ID=fu.type_entity
+
+		UNION
+		<!-- 通过角色授权 -->
+		SELECT t.ID,t.name,t.remark,t.type,t.code,t.icon_cls,t.parent_id,t.level,t.tree_index,t.is_leaf
+		FROM t_sys_filetype_role as fr,
+		(SELECT ur1.role_id
+		FROM t_org_user_role as ur1 where 1=1
+		<if test="userId != null">
+			and ur1.user_id=#{userId}
+		</if>
+		) ur,
+		(SELECT t1.* FROM t_sys_type as t1 WHERE 1=1
+		<if test="typeId != null">
+			and t1.parent_id=#{typeId}
+		</if>
+		) as t
+		WHERE ur.role_id=fr.role_entity and fr.type_entity=t.ID
+		<!-- 通过用户组角色授权 -->
+		UNION
+		SELECT t.ID,t.name,t.remark,t.type,t.code,t.icon_cls,t.parent_id,t.level,t.tree_index,t.is_leaf
+		FROM t_sys_filetype_role as fr,t_org_group_role as
+		gr,
+		(SELECT ug1.group_id FROM t_org_user_group as ug1 where 1=1
+		<if test="empId != null">
+			and ug1.emp_id=#{empId}
+		</if>
+		) as ug,
+		(SELECT t1.* FROM t_sys_type as t1 WHERE 1=1
+		<if test="typeId != null">
+			and t1.parent_id=#{typeId}
+		</if>
+		) as t
+		WHERE ug.group_id=gr.group_id and gr.role_id=fr.role_entity and fr.type_entity=t.ID
+		<!-- 通过岗位角色授权 -->
+		UNION
+		SELECT t.ID,t.name,t.remark,t.type,t.code,t.icon_cls,t.parent_id,t.level,t.tree_index,t.is_leaf
+		FROM t_sys_filetype_role as fr,t_org_job_role as jr,
+		(SELECT ej1.job_id FROM t_org_emp_job as ej1 where 1=1
+		<if test="empId != null">
+			and ej1.emp_id=#{empId}
+		</if>
+		) ej,
+		(SELECT t1.* FROM t_sys_type as t1 WHERE 1=1
+		<if test="typeId != null">
+			and t1.parent_id=#{typeId}
+		</if>
+		) as t
+		WHERE ej.job_id=jr.job_id and jr.role_id=fr.role_entity and fr.type_entity=t.ID
+		<!-- 通过部门角色授权 -->
+		UNION
+		SELECT t.ID,t.name,t.remark,t.type,t.code,t.icon_cls,t.parent_id,t.level,t.tree_index,t.is_leaf
+		FROM t_sys_filetype_role as fr,t_org_dept_role as dr,
+		(SELECT ed1.dept_id FROM t_org_emp_dept as ed1 where 1=1
+		<if test="empId != null">
+			and ed1.emp_id=#{empId}
+		</if>
+		) as ed,
+		(SELECT t1.* FROM t_sys_type as t1 WHERE 1=1
+		<if test="typeId != null">
+			and t1.parent_id=#{typeId}
+		</if>
+		) as t
+		WHERE ed.dept_id=dr.dept_id and dr.role_id=fr.role_entity and fr.type_entity=t.ID
+	</select>
+</mapper>

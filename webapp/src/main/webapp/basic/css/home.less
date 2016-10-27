@@ -1,0 +1,1454 @@
+@charset 'UTF-8';
+
+@import "css-reset";
+@import "tools";
+@import "declare";
+@import "animation.css";
+
+/*********************************具体样式*************************************** */
+.layout-main{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: @sysWidth;
+	height: @sysHeight;
+	margin-left: -@sysWidth/2;
+	margin-top: -@sysHeight/2;
+	overflow: hidden;
+	box-shadow: rgba(0,0,0,0.15) 1px 4px 12px;
+	border-radius: 3px;
+	background: @white;
+	//顶部header
+	> .header{
+		padding: 0 1em;
+		width: 100%;
+		height: 59px;
+		//background: @orange;
+		border-bottom: 1px solid #BDBDBD;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		position: relative;
+		-webkit-app-region: drag;
+		box-shadow: 0 -2px 6px rgba(0,0,0,1);
+		z-index: 1;
+		.username, .department{
+			margin-left: .5em;
+			display: inline-block;
+			line-height: 58px;
+			vertical-align: top;
+		}
+		.h-left{
+			//color: @white;
+			.avatar{
+				cursor: pointer;
+				img{
+					width: 40px;
+					height: 40px;
+					border-radius: 50px;
+					margin-top: 9px;
+				}
+			}
+			.department{
+				cursor: pointer;
+				margin-left: 1em;
+			}
+		}
+		.h-right{
+			.search{
+				background: @white;
+				margin-top: 16px;
+				border-radius: 50px;
+				overflow: hidden;
+				padding: 0 1em;
+				color: @light-grey;
+				border: @border-grey;
+				display: inline-block;
+				margin-right: 200px;
+				input{
+					height: 2em;
+					line-height: 2em;
+					border: 0;
+					width: 200px;
+				}
+				.glyphicon{
+					line-height: 2;
+				}
+			}
+			.logo{
+				height: 59px;
+				line-height: 68px;
+				img{
+					height: 15px;
+				}
+			}
+		}
+		.logofont-style{
+			display: inline-block;
+			vertical-align: top;
+			margin-top: 21px;
+			&, span{
+				font-size: 18px;
+			}
+		}
+	}
+	//body区域
+	.body{
+		height: @body-height;
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+		position: relative;
+		
+	}
+	
+	//应用页面
+	.app-list{
+		width: 101%;
+		margin: -1px;
+		td{
+			text-align: center;
+			width: 33.33%;
+			background: @white;
+			border: @border-lightgrey;
+			padding: 2em 0;
+			cursor: pointer;
+			&:hover{
+				background: @bg-lightgrey-lighter-2;
+			}
+		}
+		.app-icon{
+			i{
+				font-size: 25px;
+				color: @orange;
+			}
+			img{
+				width: 35px;
+				height: 35px;
+			}
+		}
+		.app-name{
+			color: @grey;
+			margin-top: .5em;
+			padding: 0 .5em;
+			max-width: 120px;
+			word-break: break-word;
+		}
+	}
+	.app-list-container{
+		height: @body-height;
+		background: @bg-lightgrey-lighter;
+		.header{
+			.sys-header();
+			text-align: center;
+		}
+	}
+	.app-list-content{
+		padding: 1em;
+		li{
+			background: @white;
+			padding: .6em .8em;
+			border: @border-lightgrey;
+			margin-bottom: -1px;
+			cursor: pointer;
+			position: relative;
+			.pull-right{
+				color: @light-grey;
+			}
+			.fa-close{
+				position: absolute;
+				top: 0;
+				right: 0;
+				color: @red;
+				display: none;
+				padding: 0 0 1em 1em;
+			}
+			&:hover{
+				.fa-close{
+					display: block;
+				}
+			}
+		}
+		
+	}
+}
+//重写formbuilder样式
+.fb-main {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	background-color: #fff;
+    height: @body-height;
+	& > div > .header{
+		.sys-header();
+	}
+}
+.fb-save-wrapper {
+	position: relative;
+	right: 8px;
+	bottom: -7px;
+	.fb-button{
+		color: @white;
+		padding: .35em 1.2em;
+	}
+}
+.fb-left-container{
+	height: @body-height - @sys-header-height;
+	overflow-y: auto;
+	padding-bottom: 4em;
+}
+.fb-right-container{
+	height: @body-height;
+	overflow: hidden;
+	padding-bottom: 0;
+}
+.fb-right-2-container{
+	height: @body-height - @sys-header-height - 43;
+}
+.fb-left {
+	float: left;
+	width: @sys-left-width;
+	height: @body-height;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	.template-name{
+		line-height: @sys-header-height;
+		border: 0;
+		background: transparent;
+		padding-left: 1em;
+		width: 100%;
+	}
+	.fb-field-wrapper{
+		background: @white;
+		margin: 0;
+		border-bottom: @border-lightgrey;
+		.subtemplate-wrapper{
+			padding: 0 .8em 0 9em;
+			height: @form-field-height;
+			line-height: @form-field-height;
+			margin: 0;
+			border: 0;
+			> i{
+				position: absolute;
+				right: .5em;
+				top: .3em;
+				font-size: 20px;
+				color: #aaaaaa;
+			}
+		}
+		label{
+			float: left;
+			margin: 0;
+			max-width: 8em;
+			margin-left: -8.5em;
+			word-break: break-all;
+			font-weight: normal;
+			border: 0;
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+		input, textarea{
+			border: 0;
+			width: 100%;
+			height: 100%;
+			resize: none;
+		}
+		.help-block{
+			margin: 0;
+		}
+		.input-line > span input{
+			width: auto;
+		}
+		.actions-wrapper a:hover{
+			color: @white;
+		}
+		//多行文本
+		&.response-field-paragraph{
+			label{
+				height: @form-field-height;
+				line-height: @form-field-height;
+			}
+			.subtemplate-wrapper{
+				height: 70px;
+				line-height: 70px;
+			}
+			textarea{
+				overflow: hidden;
+				line-height: @form-field-height;
+				padding: 0;
+				/*
+				 * 
+				&.rf-size-small {
+					width: 33%;
+					min-height: 60px
+				}
+				&.rf-size-medium {
+					width: 66%;
+					min-height: 100px
+				}
+				&.rf-size-large {
+					width: 100%;
+					min-height: 200px
+				}
+				 */
+			}
+		}
+		//明细
+		&.response-field-detail{
+			> .subtemplate-wrapper{
+				padding: 0;
+				height: auto;
+				line-height: normal;
+				> label{
+					margin: 0;
+					max-width: 100%;
+					display: block;
+					float: none;
+					background: #f2f2f2;
+					padding: 0 .5em;
+					height: @form-field-height;
+					line-height: @form-field-height;
+				}
+				.detail{
+					border: 0;
+					padding-bottom: 50px;
+					.subtemplate-wrapper{
+						padding: 0 .8em 0 9em;
+						height: @form-field-height;
+						line-height: @form-field-height;
+						margin: 0;
+						border: 0;
+					}
+					.response-field-paragraph{
+						.subtemplate-wrapper{
+							height: 70px;
+							line-height: @form-field-height;
+						}
+					}
+					label{
+						float: left;
+						margin: 0;
+						max-width: 8em;
+						margin-left: -8.5em;
+						border: 0;
+					}
+				}
+			}
+		}
+		.actions-wrapper{
+			bottom: -2px;
+			right: 0;
+			.fb-button{
+				background: transparent;
+				&.js-duplicate{
+					display: none;
+				}
+				&.js-clear{
+					color: @red;
+					&:hover{
+						color: @red;
+					}
+				}
+			}
+		}
+		&.with-bg{
+			background: lighten(@orange, 39%);
+			input, textarea{
+				background: transparent;
+			}
+		}
+	}
+}
+.fb-right {
+	width: @content-pannel-width;
+	height: @body-height;
+	margin-left: 0;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	min-height: 100%;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	.fb-tabs{
+		padding: 0;
+		margin: 0;
+		li a{
+			padding: 12px;
+			color: @black;
+			&:hover{
+				text-decoration: none;
+			}
+		}
+		li.active a{
+			border: 0;
+			border-bottom: 2px solid @orange;
+			margin-bottom: 0;
+		}
+	}
+	.header{
+		height: @sys-header-height;
+		background: @bg-lightgrey-lighter-2;
+	}
+	.fb-tab-content{
+		height: @body-height - @sys-header-height;
+		overflow-y: auto;
+		.fb-tab-pane{
+			padding-top: 1em;
+		}
+	}
+	.fb-right-container{
+		background: @bg-lightgrey-lighter;
+	}
+	.fb-edit-section-header{
+		font-weight: normal;
+		border-bottom: 0;
+	}
+	.fb-common-checkboxes{
+		> label{
+			line-height: 2;
+			font-weight: normal;
+			> input{
+				margin: 0 7px 4px 0;
+			}
+		}
+	}
+}
+.fb-right-2 {
+	float: right;
+	width: 280px;
+	height: @body-height;
+	min-height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	overflow: hidden;
+}
+.fb-right-2-container{
+	//padding: 1em;
+	.form-field{
+		margin-bottom: 1em;
+		.field-label{
+			float: left;
+			line-height: 26px;
+		}
+		.field-checkbox{
+			float: left;
+			margin: 7px 5px 0 0;
+		}
+		.field-val{
+			width: 100%;
+			max-width: 100%;
+			resize: none;
+			border: @border-lightgrey;
+			border-color: #ddd;
+			border-radius: .25em;
+			&:focus{
+				border: @border-orange;
+			}
+		}
+		textarea{
+			height: 5em;
+		}
+		//任务设置表单里的按钮
+		.form-val-set{
+			padding: .1em .5em;
+			margin-left: 1em;
+		}
+		.icon-box{
+			padding-top: 2em;
+			li{
+				border: 0;
+				border-radius: 10px;
+				height: 45px;
+				width: 45px;
+				//line-height: 70px;
+				text-align: center;
+				margin: 0 1em 1em 0;
+				padding: 5px 0;
+				cursor: pointer;
+				position: relative;
+				//background: @white;
+				.icon{
+					height: 35px;
+					width: 35px;
+				}
+				.check-flag{
+					position: absolute;
+					display: none;
+					color: @green;
+				}
+				&.selected{
+					.check-flag{
+						position: absolute;
+						display: inline;
+						bottom: 0;
+						right: 0;
+					}
+				}
+			}
+		}
+		.search-select{
+			//position: relative;
+			//margin-top: 2em;
+			input{
+				padding: .3em 2em .3em .3em;
+			}
+			span{
+				position: absolute;
+				right: 6px;
+				top: 0;
+				line-height: 28px;
+				cursor: pointer;
+				color: @orange;
+			}
+		}
+		.person-list{
+			.sys-selected-person();
+			.item-person{
+				text-align: center;
+			}
+			.avatar{
+				float: none;
+				margin-top: 10px;
+				img{
+					width: 33px;
+					height: 33px;
+					border-radius: 50px;
+				}
+			}
+			.add-item{
+				vertical-align: top;
+				padding: 8px;
+				>div{
+					//line-height: 61px;
+					color: #ddd;
+					text-align: center;
+					//border: 2px solid #ddd;
+					//border-radius: 50px;
+					//width: 50px;
+					//height: 50px;
+					cursor: pointer;
+					i{
+						font-size: 30px;
+						line-height: 50px;
+					}
+					img{
+						width: 50px;
+						height: 50px;
+					}
+				}
+			}
+			.glyphicon-remove{
+				display: none;
+			}
+			&.without-arrow{
+				.glyphicon-arrow-right{
+					display: none;
+				}
+			}
+		}
+	}
+}
+.fb-add-field-types{
+	.section{
+		//width: 366px;
+		margin: 0 auto;
+	}
+	a{
+		display: inline-block;
+		width: 46.5%;
+		background-color: transparent;
+		border: 1px dashed @light-grey;
+	}
+}
+.fb-no-response-fields{
+	text-align: center;
+	padding-top: 1em;
+}
+.edit-response-field{
+	input:focus, 
+	textarea:focus, 
+	select:focus{
+		border-color: @orange;
+	}
+	.option{
+		input[type='text']{
+			width: 150px;
+			padding: .4em .5em;
+		}
+		input[type='checkbox']{
+			margin-bottom: 3px;
+		}
+		a:hover{
+			color: @white;
+		}
+		.fb-button{
+			background: transparent;
+			position: relative;
+			top: 2px;
+			.my-transition(all, .3s);
+			i{
+				font-size: 20px;
+			}
+			&.js-add-option{
+				color: @green - #222;
+			}
+			&.js-remove-option{
+				color: @red;
+			}
+			&:hover{
+				opacity: .5;
+			}
+		}
+	}
+	input[type=text]{
+		margin-bottom: 3px;
+	}
+	label{
+		font-weight: normal;
+		input[type='checkbox']{
+			margin-bottom: 5px;
+		}
+	}
+}
+.fb-field-wrapper{
+	//“视频”控件
+	.video{
+		height: 80px;
+		line-height: 85px;
+		border: 1px solid #ddd;
+		width: 120px;
+		text-align: center;
+		i{
+			font-size: 30px;
+			color: @light-grey;
+		}
+	}
+	//“明细”控件
+	.detail{
+		width: 100%;
+		//min-height: 80px;
+		border: 1px solid #ddd;
+	}
+}
+.fb-button{
+	background: @orange;
+	border: 0;
+	border-radius: 50px;
+	color: @black;
+	padding: .5rem;
+	&[disabled]{
+		background: transparent;
+		border: 0;
+	}
+	&.deploy{
+	}
+	&.ui-draggable{
+		border-radius: 0;
+	}
+}
+.fb-edit-field-wrapper{
+	.fb-field-label{
+		background: transparent;
+		padding: 0;
+		code{
+			color: @light-grey;
+			&.field-type{
+				font-size: 13px;
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+//左侧功能列表
+.menu-pannel{
+	width: 70px;
+	height: 100%;
+	//background-color: @bg-lightgrey;
+	overflow-x: hidden;
+	overflow: hidden;
+	position: relative;
+	display: inline-block;
+	border-right: @border-grey;
+	border-bottom-left-radius: 3px;
+	-webkit-user-select: none;
+	.main-menus{
+		margin-top: 0;
+		li{
+			cursor: pointer;
+			border: 0;
+			border-radius: 50px;
+			color: @grey + #444;
+			background: @orange;
+			width: @main-menus-li-size;
+			height: @main-menus-li-size;
+			line-height: @main-menus-li-size;
+			margin: 1.5em auto;
+			position: relative;
+			opacity: .5;
+			.my-transition(all, .3s);
+			.glyphicon{
+				font-size: 18px;
+				position: relative;
+				top: 3px;
+				left: 1px;
+				color: @white;
+			}
+			img{
+				width: @main-menus-li-size;
+				height: @main-menus-li-size;
+				border: 4px solid;
+				border-radius: 50px;
+				border-color: lighten(@orange, 30%);
+			}
+			&:hover, &.active{
+				opacity: 1;
+			}
+		}
+		#sysHome{
+			border: 0;
+			> div{
+				width: @main-menus-li-size - 6px;
+				height: @main-menus-li-size - 6px;
+				line-height: @main-menus-li-size - 6px;
+				background: @orange;
+				color: @white;
+				border-radius: 50px;
+				margin: 2px;
+				font-size: 12px;
+				text-indent: 2px;
+			}
+		}
+	}
+	.extra-options{
+		position: absolute;
+		bottom: 1em;
+		width: 100%;
+		li{
+			cursor: pointer;
+		}
+	}
+}
+//功能页面显示
+.menu-pannel-body{
+	width: 910px;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	float: right;
+}
+//功能页面左侧
+.sub-menu-pannel{
+	width: @sys-left-width;
+	height: 100%;
+	display: inline-block;
+	position: relative;
+	background: @bg-lightgrey-lighter;
+	border-right: @border-grey;
+	overflow-y: auto;
+	overflow-x: hidden;
+	z-index: 0;
+	.list-title{
+		.sys-header();
+	}
+	//formAppHome页面，选择机构下拉菜单
+	.dropdown{
+		position: relative;
+		.drop-header{
+			.sys-header();
+			.dropdown-btn{
+				position: absolute;
+				right: 1em;
+				top: 14px;
+				font-size: 10px;
+				color: @light-grey;
+			}
+		}
+		.drop-list{
+			display: none;
+			position: absolute;
+			z-index: 1;
+			background: @white;
+			width: 100%;
+			border-bottom: @border-lightgrey;
+			li{
+				width: 100%;
+				text-align: center;
+				padding: 13px 0;
+				cursor: pinter;
+				&:hover{
+					background: lighten(@orange, 35%);
+				}
+			}
+		}
+	}
+}
+//功能页面右侧
+.content-pannel{
+	width: @content-pannel-width;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: @bg-lightgrey-lighter;
+}
+//右侧滑出框
+.menu-pannel-pop{
+	width: @sys-left-width;
+	height: 100%;
+	background: @white;
+	position: absolute;
+	right: -364px;
+	top: 50px;
+	box-shadow: -3px 0px 3px #ccc;
+	.my-transition(all, .3s);
+	&.active{
+		right: 1px;
+	}
+	&.home{
+		height: @body-height;
+		top: 59px;
+		.body{
+			height: @body-height - @menu-pannel-pop-header-height;
+		}
+	}
+	.header{
+		.sys-header();
+		padding: 0 1em;
+		.close-btn{
+			font-size: 20px;
+			cursor: pointer;
+		}
+	}
+	.body{
+		height: @body-height - @menu-pannel-pop-header-height + 4;
+		.group-setting-body-container{
+			height: @body-height - @menu-pannel-pop-header-height - @menu-pannel-pop-footer-height;
+			background: @bg-lightgrey-lighter;
+		}
+		.row-link{
+			color: @orange;
+			margin-left: 1em;
+			& > i, & > button, & > span{
+				cursor: pointer;
+			}
+		}
+		//设置项
+		.group-setting-row{
+			padding: 1em 1.3em 0;
+			//只有checkbox的设置项
+			&.setting-item{
+				.row-value{
+					float: right;
+				}
+			}
+		}
+		//群名称
+		.group-name-edit{
+			.group-name{
+				background: transparent;
+				border: @border-grey;
+				width: 165px;
+				&:disabled{
+					border: 0;
+				}
+			}
+			.btn-edit{
+				display: inline;
+			}
+			.btn.btn-confirm{
+				padding: 0 .3em;
+				display: none;
+			}
+			&.editing{
+				.btn.btn-confirm{
+					display: inline-block;
+				}
+				.btn-edit{
+					display: none;
+				}
+			}
+		}
+		//群成员管理区域
+		.group-setting-person{
+			
+		}
+		//群成员列表
+		.person-now{
+			padding: 1em 1.3em 0;
+			li{
+				text-align: center;
+			}
+			.avatar{
+				width: 38px;
+				height: 38px;
+				border-radius: 50px;
+				margin: .5em 1em 0 0;
+			}
+			.name{
+				text-align: center;
+				margin: .2em 1em 0 0;
+			}
+		}
+		//底部按钮区域
+		.group-setting-footer{
+			height: @menu-pannel-pop-footer-height;
+			line-height: @menu-pannel-pop-footer-height;
+			background: @bg-lightgrey-lighter-2;
+			border-top: @border-lightgrey;
+			.row-link{
+				position: absolute;
+			}
+		}
+	}
+}
+//****************************************************聊天界面样式 - S
+//聊天弹框
+.chat-modal{
+	.modal-dialog{
+		width: @sysWidth;
+		position: relative;
+		overflow: hidden;
+	}
+	.modal-body{
+		padding: 0;
+	}
+	.content-pannel{
+		width: @content-pannel-width + 68;
+	}
+}
+//消息列表
+.msg-list{
+	width: @sys-left-width;
+	height: @body-height - @sub-menu-pannel-list-title-height;
+	background: @white;
+	> li{
+		padding: .7em 0;
+		border-bottom: @border-lightgrey;
+		cursor: pointer;
+		&:hover, &.active{
+			//background: @bg-lightgrey-lighter;
+		}
+	}
+	.avatar{
+		height: 37px;
+		width: 37px;
+		position: relative;
+		float: left;
+		margin: 0 1em;
+		img{
+			border-radius: 50px;
+			height: 37px;
+			width: 37px;
+		}
+		&:after{
+			content: attr(data-num);
+			position: absolute;
+			top: -3px;
+			right: -6px;
+			width: 16px;
+			height: 16px;
+			line-height: 16px;
+			text-align: center;
+			border-radius: 50px;
+			background: @red;
+			color: @white;
+			font-size: 12px;
+		}
+		&.group{
+			img{
+				height: 18px;
+				width: 18px;
+				float: left;
+			}
+			&.three{
+				img:first-child{
+					position: relative;
+					left: 9px;
+					margin-right: 9px;
+				}
+			}
+		}
+		&.without-bubble:after{
+			content: none;
+		}
+	}
+	.info{
+		line-height: 1.4;
+		.username{
+			max-width: 17em;
+			display: inline-block;
+		}
+		.rec-time{
+			margin-right: 1em;
+			font-size: 12px;
+		}
+		.detail{
+			max-width: 17em;
+			display: inline-block;
+			font-size: 12px;
+		}
+		.type{
+			margin-right: 1em;
+			font-size: 12px;
+		}
+	}
+}
+//聊天界面上方工具条
+.chat-top-bar{
+	.sys-header();
+	padding: 0 1em;
+	.tool-bar{
+		button{
+			font-size: 20px;
+			color: @orange;
+			vertical-align: middle;
+			position: relative;
+			top: -1px;
+		}
+	}
+}
+//聊天消息界面
+.chat-box-container{
+	height: @chat-box-container-height;
+	background: @bg-lightgrey-lighter;
+	//聊天消息容器
+	.chat-main{
+		padding: .8em;
+		> div{
+			margin: 1.2em auto;
+		}
+		//系统通知
+		.sys-notice{
+			text-align: center;
+			color: @light-grey;
+		}
+		//聊天单条消息
+		.chat-item{
+			//用户名，消息发送时间区域
+			.chat-profile{
+				padding: .3em 47px;
+				position: relative;
+				top: 6px;
+				.chat-time, .name{
+				}
+				.name{
+					font-size: 12px;
+				}
+				.chat-time{
+					visibility: hidden;
+					margin: 0 1em;
+					color: @light-grey;
+					font-size: 12px;
+				}
+			}
+			//头像，气泡框区域
+			.avatar{
+				overflow: hidden;
+				float: left;
+				img{
+					border-radius: 50px;
+					width: 33px;
+					height: 33px;
+				}
+			}
+			.msg-bubble-box{
+				display: inline-block;
+				max-width: 300px;
+				margin-left: 14px;
+				margin-top: 6px;
+				padding: 5px 11px;
+				background: @white;
+				border: 0;
+				border-radius: 7px;
+				position: relative;
+				.chat-img{
+					max-width: 278px;
+					max-height: 200px;
+				}
+				.chat-audio{
+					line-height: 2;
+					width: 80px;
+					cursor: pointer;
+					.play-btn{
+						color: @orange;
+					}
+				}
+				&:before{
+					content: "";
+					position: absolute;
+					width: 0;
+				    height: 0;
+				    border-top: 3px solid transparent;
+					border-right: 6px solid @white;
+					border-bottom: 3px solid transparent;
+					left: -6px;
+					top: 7px;
+				}
+			}
+			//“我”发出的消息
+			&.me{
+				.chat-time, .name, .avatar, .msg-bubble-box{
+					float: right;
+				}
+				.msg-bubble-box{
+					margin-left: 0;
+					margin-right: 14px;
+					background: @orange;
+					.chat-audio, .play-btn{
+						color: @white;
+					}
+					> pre{
+						color: @white;
+						white-space: pre-wrap;
+					}
+					&:before{
+						border-top: 3px solid transparent;
+					    border-left: 6px solid @orange;
+						border-right: 0;
+					    border-bottom: 3px solid transparent;
+						right: -6px;
+						left: auto;
+					}
+				}
+			}
+			&:hover{
+				.chat-time{
+					visibility: visible;
+				}
+			}
+		}
+	}
+}
+//聊天输入区域
+.chat-input-container{
+	height: @body-height - @chat-box-container-height - 36;
+	border-top: @border-lightgrey;
+	background: @white;
+	.tool-list{
+		padding: .8em 1em;
+		> li{
+			margin-right: .5em;
+			color: @grey + #222;
+			position: relative;
+			&:hover{
+				color: @orange;
+			}
+			button{
+				font-size: 15px;
+				font-weight: bold;
+				&.glyphicon{
+					font-weight: normal;
+					position: ralative;
+					top: 3px;
+				}
+			}
+		}
+		.pop-expression{
+			width: 370px;
+			height: 300px;
+			border: @border-grey;
+			background: @white;
+			display: none;
+			position: absolute;
+			left: 0;
+			top: -310px;
+			box-shadow: 2px -2px 6px rgba(0,0,0,.15);
+			.pop-expression-container{
+				height: 100%;
+				padding: 1em;
+			}
+			&.open{
+				display: block;
+			}
+		}
+		.expression-list{
+			height: 100%;
+			li{
+				padding: .3em;
+				text-align: center;
+				cursor: pointer;
+				img{
+					width: 26px;
+					height: 26px;
+				}
+			}
+		}
+	}
+	.chat-input-text{
+		height: 66px;
+		textarea{
+			width: @content-pannel-width;
+			border: 0;
+			resize: none;
+			padding: 0 1em;
+			height: 100%;
+		}
+	}
+	.chat-input-btnbar{
+		padding: .3em .5em;
+		button{
+			border: @border-lightgrey;
+			background: @bg-lightgrey-lighter;
+			color: @grey;
+			padding: .3em 2em;
+			&:hover{
+				background: @bg-lightgrey-lighter - #111;
+			}
+		}
+	}
+}
+//****************************************************聊天界面样式 - E
+
+//系统列表样式
+.sys-list{
+	//padding: 1em;
+	margin: 0 !important;
+	.sys-list-container{
+		padding: 1em;
+		&.no-padding{
+		}
+	}
+	.list-item{
+		background: @white;
+		border: @border-lightgrey;
+		margin-bottom: 1em;
+		cursor: pointer;
+		border-radius: 5px;
+		.item-top{
+			padding: .8em;
+			border-bottom: @border-lightgrey;
+			position: relative;
+			height: 34px;
+			&:before, &:after{
+				display: table;
+				content: " ";
+			}
+			&:after{
+				clear: both;
+			}
+			.item-ctime{
+				float: right;
+				color: @light-grey;
+			}
+			.fa-close{
+				position: absolute;
+				top: 0;
+				right: 0;
+				color: @red;
+				display: none;
+				padding: 0 0 1em 1em;
+			}
+		}
+		&:hover{
+			.fa-close{
+				display: block;
+			}
+		}
+		.item-content{
+			padding: .6em .8em;
+			
+			.content-header{
+				margin-bottom: .8em;
+				font-size: 12px;
+			}
+			.content-footer{
+				color: @light-grey;
+				margin-top: .8em;
+				font-size: 12px;
+			}
+			.content-item{
+				line-height: 1.5;
+				.label{
+					padding: 0;
+					color: @black;
+					font-weight: normal;
+					font-size: 12px;
+				}
+				.text{
+					color: @light-grey;
+					font-size: 12px;
+					&.text-top{
+						display: inline-block;
+						margin-bottom: .5em;
+					}
+				}
+				&.img{
+					img{
+						max-height: 400px;
+						max-width: 100%;
+					}
+				}
+			}
+		}
+		.item-bottom{
+			padding: .3em .8em;
+			border-top: @border-lightgrey;
+			.user-group{
+				li{
+					margin-right: .5em;
+					&.active{
+						position: relative;
+						&:before{
+							content:"";
+							display: block;
+							position: absolute;
+							left: 13px;
+							top: -8px;
+							width: 0;
+						    height: 0;
+						    border-left: 4px solid transparent;
+						    border-right: 4px solid transparent;
+						    border-bottom: 7px solid @orange;
+						}
+					}
+				}
+				img{
+					width: 24px;
+					height: 24px;
+					border-radius: 50px;
+					vertical-align: middle;
+				}
+				
+			}
+		}
+	}
+}
+//编辑表单样式，如密码修改页面
+.sys-edit-form{
+	.form-row{
+		position: relative;
+		margin-bottom: 7px;
+	}
+	.row-label{
+		position: absolute;
+		left: 0;
+		top: 6px;
+		font-weight: normal;
+	}
+	.row-input{
+		padding: .5em .8em;
+		padding-left: 4em;
+		border: 0;
+		border-bottom: @border-lightgrey;
+		width: 100%;
+		&:focus{
+			border-bottom: @border-orange;
+		}
+	}
+	.type-btn{
+		text-align: center;
+		margin-top: 30px;
+		.row-btn{
+			width: 100%;
+			background: @orange;
+			color: @white;
+			padding: .7em 0;
+			border-radius: 50px;
+		}
+	}
+}
+//Tab样式
+.sys-tab{
+	.nav-tabs{
+		width: 100%;
+		> li{
+			margin-bottom: 0;
+			width: 50%;
+			a, a:focus, a:hover{
+				background: @white;
+				border: 0;
+				border-bottom: 2px solid transparent;
+				padding: 5px 15px;
+				color: @black;
+			}
+			&.active{
+				a, a:focus{
+					background: @white;
+					border-bottom-color: @orange;
+				}
+			}
+		}
+	}
+}
+#colorbox{
+	video, audio{
+		height: 100%;
+		width: 100%;
+	}
+}
+
+//选择模版类型页面（普通模版，关联模版）
+.form-type{
+	width: 100%;
+	height: 100%;
+	background: @bg-lightgrey-lighter;
+	.form-type-box{
+		width: 320px;
+		height: 100px;
+		top: 35%;
+		margin: 0 auto;
+		background: @white;
+		border-radius: 5px;
+		position: relative;
+		.header{
+			height: 35px;
+			line-height: 35px;
+			border-bottom: @border-lightgrey;
+			text-align: center;
+		}
+		.content{
+			li{
+				border-right: @border-lightgrey;
+				line-height: 65px;
+				cursor: pointer;
+				color: @orange;
+				.my-transition(all, .3s);
+				&:last-child{
+					border-right: 0;
+				}
+				&:hover{
+					//background: lighten(@orange, 39%);
+				}
+			}
+		}
+	}
+}
+
+//工作组页面样式
+.work-group-content{
+	padding: 1em;
+	background: @bg-lightgrey-lighter;
+}
+
+//重写zTree样式
+.ztree li span.button{
+	&.noline_open{
+		background: url(../img/iconfont-xia.png) no-repeat;
+		background-position: 0;	
+		background-size: 16px;
+	}
+	&.noline_close{
+		background: url(../img/iconfont-you.png) no-repeat;	
+		background-position: 0;	
+		background-size: 16px;
+	}
+}
+
+//重写iscroll样式
+.content-pannel{
+	.wrapper{
+		padding: 0 1em;
+		width: 97.3%;
+		margin-top: 1em;
+	}
+	.scroller{
+		width: 98%;
+	}
+	#shenpi{
+		.wrapper{
+			top: 0;
+		}
+	}
+}
+

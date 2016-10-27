@@ -1,0 +1,287 @@
+@charset 'UTF-8';
+
+@import "home.common.less";
+@import "commonForm";
+@import "home";
+
+@import "css-reset";
+@import "tools";
+@import "declare";
+//@import "animation.css";
+
+/*********************************具体样式*************************************** */
+//页面框架
+.form-designer-box{
+	> div{
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		padding-bottom: 42px;
+		.my-transition(all, .3s);
+	}
+	//.form-type, .fb-main, .form-setting
+	&.step-1{
+		.form-type{
+			left: 0;
+		}
+		.form-content{
+			left: 100%;
+		}
+		.form-setting{
+			left: 200%;
+		}
+	}
+	&.step-2{
+		.form-type{
+			left: -100%;
+		}
+		.form-content{
+			left: 0;
+		}
+		.form-setting{
+			left: 100%;
+		}
+	}
+	&.step-3{
+		.form-type{
+			left: -200%;
+		}
+		.form-content{
+			left: -100%;
+		}
+		.form-setting{
+			left: 0;
+		}
+		
+	}
+	
+	.form-content{
+		.form-btn-bottom{
+			> ul > li{
+				width: 33.33%;
+			}
+		}
+		.form-edit-back{
+			display: table-cell;
+		}
+		&.main{
+			.form-btn-bottom{
+				> ul > li{
+					width: 50%;
+				}
+			}
+			.form-edit-back{
+				display: none;
+			}
+		}
+	}
+	
+	.form-setting{
+		background: @bg-lightgrey-lighter;
+		.setting-content{
+			height: 100%;
+		}
+	}
+}
+
+//重写设计器其他样式
+.form-type{
+	.form-type-box{
+		top: 0;
+		width: 100%;
+	}
+}
+
+//移动端新的样式
+.form-btn-bottom{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: @white;
+	ul{
+		width: 100%;
+		li{
+			border: @border-lightgrey;
+			border-right: 0;
+		}
+		button{
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+			color: @orange;
+		}
+		&.has-one{
+			> li{
+				width: 100%;
+			}
+		}
+		&.has-two{
+			> li{
+				width: 50%;
+			}
+		}
+		&.has-three{
+			> li{
+				width: 33.33%;
+			}
+		}
+	}
+}
+
+//重写移动端formbuilder样式
+.fb-main{
+	height: 100%;
+}
+.fb-left{
+	width: 100%;
+	height: 100%;
+	.fb-left-container{
+		height: 100%;
+		overflow-y: auto;
+	}
+}
+.fb-right{
+	width: 100%;
+	.fb-right-container{
+		height: 100%;
+	}
+	.fb-tab-content{
+		height: 100%;
+	}
+	.fb-right-2-container{
+		height: 100%;
+	}
+	.fb-tab-content{
+		.fb-tab-pane{
+			//padding-top: 0;
+			.fb-add-field-types{
+				//padding-top: 1em;
+			}
+		}
+	} 
+}
+.fb-right-2-container{
+	height: 100%;
+	overflow-y: auto;
+}
+.fb-response-fields{
+	padding-bottom: 0;
+}
+.fb-field-wrapper{
+	border-radius: 0;
+	&.editing{
+		//border-top: @border-orange;
+		//border-bottom: @border-orange;
+		//border-color: lighten(@orange, 29%);
+		> div > button{
+			> .orange{
+				display: inline;
+			}
+			> .grey{
+				display: none;
+			}
+		} 
+	}
+	input, textarea{
+		&:disabled{
+			background: none;
+		}
+	}
+	//明细
+	&.response-field-detail{
+		.add-detailele-btn{
+			text-align: center;
+			padding: 6px 0;
+			color: @orange;
+		}
+	}
+}
+.field-control-btn{
+	position: absolute;
+	right: 25px;
+	top: 0;
+	height: @form-field-height;
+	line-height: @form-field-height;
+	width: @form-field-height;
+	img{
+		border: @border-orange;
+		border-color: lighten(@orange, 20%);
+		width: 30px;
+		border-radius: 50px;
+		vertical-align: middle;
+		height: 20px;
+		padding: 0 4px;
+	}
+	.orange{
+		display: none;
+	}
+	.grey{
+		border: @border-grey;
+	}
+	i{
+		font-size: 14px;
+		border: @border-grey;
+		border-width: 2px;
+		color: @border-color-grey;
+		border-radius: 50px;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		text-align: center;
+		padding-top: 2px;
+		padding-left: 1px;
+	}
+}
+.field-control{
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	bottom: -34px;
+	left: 0;
+	background: @bg-lightgrey;
+	z-index: 1;
+	height: @form-field-height;
+	line-height: @form-field-height;
+	ul{
+		li{
+			padding: 0 13px;
+		}
+	}
+}
+//“请添加控件”提示语区域
+.fb-no-response-fields{
+	margin-bottom: 2em;
+}
+//始终显示在下方的“添加控件”按钮
+.fb-addfield{
+	width: 100%;
+	margin-top: 2em;
+	text-align: center;
+	img{
+		height: 40px;
+		width: 40px;
+	}
+	button{
+		width: 100%;
+		background: @orange;
+		color: @white;
+		height: @form-field-height;
+		line-height: @form-field-height;
+	}
+}
+//
+.fb-back-fieldsort{
+	margin-top: 2em;
+	button{
+		height: @form-field-height;
+		line-height: @form-field-height;
+		text-align: center;
+		background: @orange;
+		color: @white;
+		width: 100%;
+		border-radius: 50px;
+	}
+}
+

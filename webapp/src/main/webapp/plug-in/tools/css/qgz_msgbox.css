@@ -1,0 +1,230 @@
+@charset "utf-8";
+
+.qgz-msgbox-header{
+	height: 65px;
+	background-color: #0F8BD9;
+	padding: 21.5px 15px;
+	font-size: 16px;
+	max-height: 65px;
+	color: #fff;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+
+.qgz-msgbox-container{
+	border: 1px solid #f2f2f2;
+	border-top-width: 0;
+}
+.qgz-msgbox-container .qm-container-right{
+	position: relative;
+} 
+.qgz-msgbox-container > div{
+	width: 50%;
+	display: inline-block;
+	vertical-align: top;
+/* 	overflow-y: auto; */
+}
+.qgz-msgbox-container .acinfo-header{
+	padding: 15px;
+/* 	background-color: #eee; */
+}
+.qgz-msgbox-container .acinfo-header > li{
+	vertical-align: middle;
+}
+.qgz-msgbox-container .acinfo-header .awsm-icon-qrcode{
+	font-size: 40px;
+	color: #999;
+}
+.qgz-msgbox-container .acinfo-header .ac-user-avatar{
+	border-radius: 30px;
+	overflow: hidden;
+}
+.qgz-msgbox-container .acinfo-header .ac-username{
+	margin: 0 0 0 10px;
+}
+.qgz-msgbox-container .acinfo-header .ac-username > h4{
+	margin: 0 0 10px 0;
+}
+.qgz-msgbox-container .acinfo-header > .pull-right{
+	position: relative;
+	top: 12px;
+}
+
+.qgz-msgbox-container .acinfo-setlist > li{
+	background-color: #fff;
+	padding: 8px 10px;
+	border: 1px solid #f2f2f2;
+/* 	border-top: 0; */
+}
+.qgz-msgbox-container .acinfo-setlist > li:hover,
+.qgz-msgbox-container .acinfo-setlist > li.active{
+	border: 1px solid #0f8bd9;
+/* 	border-top: 0; */
+}
+.qgz-msgbox-container .acinfo-setlist > li.space{
+	background-color: transparent;
+	height: 10px;
+	padding: 0;
+	margin: 0;
+}
+.qgz-msgbox-container .acinfo-setlist > li.space:hover{
+	border: 1px solid #f2f2f2;
+}
+.qgz-msgbox-container .acinfo-setlist > li > .pull-right{
+	position: relative;
+	top: 3px;
+}
+.qgz-msgbox-container .acinfo-setlist .as-name{
+	font-size: 16px;
+	vertical-align: bottom;
+}
+/* 聊天列表 */
+.qgz-msgbox-container .qmc-list-container{
+	border-right: 1px solid #f2f2f2;
+	background-color: #f2f2f2;
+}
+.qgz-msgbox-container .qlc-search{
+	padding: 8px 10px;
+	background-color: #eee;
+	position: relative;
+}
+.qgz-msgbox-container .qlc-search > input{
+	width: 100%;
+	height: 3em;
+	padding: 0 31px;
+	border-radius: 6px;
+}
+.qgz-msgbox-container .qlc-search > i{
+	position: absolute;
+	font-size: 20px;
+	color: #bbb;
+	top: 15px;
+	left: 17px;
+}
+.qgz-msgbox-container .qlc-list{
+/* 	background-color: #f2f2f2; */
+}
+.qgz-msgbox-container .ql-item{
+	background-color: #fff;
+	padding: 8px 10px;
+	border-bottom: 1px solid #f2f2f2;
+}
+.qgz-msgbox-container .ql-item > div{
+	padding-left: 60px;
+}
+.qgz-msgbox-container .ql-item .qli-avatar{
+	margin-left: -60px;
+	position: relative;
+}
+.qgz-msgbox-container .ql-item .qli-avatar.num-alert:after{
+	content: attr(data-msgnum);
+	display: block;
+	height: 19px;
+	width: 19px;
+	border-radius: 10px;
+	color: #fff;
+	background-color: #FF3F31;
+	position: absolute;
+	right: -5px;
+	top: -3px;
+	text-align: center;
+	font-size: 13px;
+}
+.qgz-msgbox-container .ql-item .qli-avatar.circle-avatar > a > img{
+	border-radius: 50px;
+}
+.qgz-msgbox-container .ql-item > div > p{
+	padding: 4px 8px;
+}
+.qgz-msgbox-container .qli-username{
+	font-size: 16px;
+}
+
+.qgz-msgbox-container .qli-msg{
+	font-size: 14px;
+	color: #a7a7a7;
+}
+
+.qgz-hr{
+	margin: 15px -15px;
+}
+
+.user-score{
+	font-size: 40px;
+	color: #FF3F31;
+}
+.qgz-uscore-opt > li{
+	margin: 0 5px;
+}
+
+.qgz-mb-top{
+	padding: 10px;
+	border-bottom: 1px solid #f2f2f2;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+	background-color: #fff;
+}
+.qgz-mb-content-right{
+	position: relative;
+	z-index: 0;
+	padding-top: 55px;
+}
+.qgz-mb-top > a > i > span{
+	font-size: 16px;
+}
+/* 时间轴 */
+.qgz-timeline-item{
+	margin-bottom: 20px;
+	position: relative;
+}
+.qgz-timeline-item:before{
+	content: "";
+	display: block;
+	position: absolute;
+	left: 92px;
+	top: 32px;
+	bottom: -37px;
+	border-width: 0;
+	background-color: #DDD;
+	width: 2px;
+	max-width: 2px;
+	z-index: 0;
+}
+.qgz-timeline-info,
+.qgz-timeline-item .widget-avatar{
+	float: left;
+}
+.qgz-timeline-info .awsm-icon-bullseye{
+	position: relative;
+	z-index: 1;
+}
+.qgz-timeline-item > .widget-box{
+	margin-left: 110px;
+	border: 1px solid #f2f2f2;
+	padding: 10px;
+}
+.qgz-timeline-item .widget-avatar + .widget-main{
+	margin-left: 80px;
+}
+.qgz-timeline-date > .qtd-d{
+	font-size: 28px;
+	color: #0f8bd9;
+	margin-right: 5px;
+}
+.qgz-timeline-item:last-child:before {
+	content: none;
+}
+
+/* 修改bootstrap表格样式 */
+.qgz-mb-content-right .table{
+	border: 1px solid #f2f2f2;
+}
+.qgz-mb-content-right .table>tbody>tr>td, 
+.qgz-mb-content-right .table>tbody>tr>th, 
+.qgz-mb-content-right .table>tfoot>tr>td, 
+.qgz-mb-content-right .table>tfoot>tr>th, 
+.qgz-mb-content-right .table>thead>tr>td, 
+.qgz-mb-content-right .table>thead>tr>th{
+	border-top-color: #f2f2f2 !important;
+}

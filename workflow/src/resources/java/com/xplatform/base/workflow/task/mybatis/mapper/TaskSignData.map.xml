@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xplatform.base.workflow.task.mybatis.dao.TaskSignDataMybatisDao">
+
+	<select id="getMaxSignNums" resultType="java.lang.Integer" parameterType="hashmap">
+		SELECT max(sign_nums) maxNums from t_flow_task_sign_data where act_inst_id=#{actInstId} and node_id=#{nodeId} and is_completed=#{isCompleted}
+		and batch=(select max(batch)
+		                  from t_flow_task_sign_data
+		                 where act_inst_id = #{actInstId}
+		                   and node_id = #{nodeId})
+	</select>
+	
+	
+	<select id="getAgreeVoteCount" resultType="java.lang.Integer" parameterType="hashmap">
+		SELECT count(*) totalVotes from t_flow_task_sign_data where act_inst_id=#{actInstId} and node_id=#{nodeId} and is_completed='1' and is_agree='1'
+		and batch=(select max(batch)
+		                  from t_flow_task_sign_data
+		                 where act_inst_id = #{actInstId}
+		                   and node_id = #{nodeId})
+	</select>
+	
+	<select id="getRefuseVoteCount" resultType="java.lang.Integer" parameterType="hashmap">
+		SELECT count(*) totalVotes from t_flow_task_sign_data where act_inst_id=#{actInstId} and node_id=#{nodeId} and is_completed='1' and is_agree='2'
+		and batch=(select max(batch)
+		                  from t_flow_task_sign_data
+		                 where act_inst_id = #{actInstId}
+		                   and node_id = #{nodeId})
+	</select>
+	
+	<select id="getAbortVoteCount" resultType="java.lang.Integer" parameterType="hashmap">
+		SELECT count(*) totalVotes from t_flow_task_sign_data where act_inst_id=#{actInstId} and node_id=#{nodeId} and is_completed='1' and is_agree='0'
+		and batch=(select max(batch)
+		                  from t_flow_task_sign_data
+		                 where act_inst_id = #{actInstId}
+		                   and node_id = #{nodeId})
+	</select>
+	
+	<update id="updateCompleted" parameterType="hashmap">
+		update t_flow_task_sign_data set is_completed='1' where act_inst_id=#{actInstId} and node_id=#{nodeId} and is_completed='0'
+		and batch = (select temp.batch from (select max(batch) batch from t_flow_task_sign_data where act_inst_id=#{actInstId} and node_id=#{nodeId})temp)
+	</update>
+	
+	<select id="getMaxBatch" resultType="java.lang.Integer">
+		select max(batch) batch from t_flow_task_sign_data
+		                 where act_inst_id = #{actInstId}
+		                   and node_id = #{nodeId}
+	</select>
+    
+</mapper>

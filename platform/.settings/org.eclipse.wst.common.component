@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+  <wb-module deploy-name="platform">
+    <wb-resource deploy-path="/" source-path="src/main/java"/>
+    <wb-resource deploy-path="/" source-path="src/main/resources"/>
+    <wb-resource deploy-path="/" source-path="target/generated-resources/eclipse"/>
+        <wb-resource deploy-path="/" source-path="/src/common/java"/>
+        <wb-resource deploy-path="/" source-path="/src/form/java"/>
+        <wb-resource deploy-path="/" source-path="/src/organization/java"/>
+        <wb-resource deploy-path="/" source-path="/src/system/java"/>
+        <wb-resource deploy-path="/" source-path="/src/work/java"/>
+  </wb-module>
+</project-modules>

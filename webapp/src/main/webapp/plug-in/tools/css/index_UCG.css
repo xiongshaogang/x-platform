@@ -1,0 +1,41 @@
+/* 首页LOGO区域，单独分离出来 */
+#navbar{
+	background-color: #ADE6F3;
+}
+.navbar-brand{
+	height:45px;
+	position: relative;
+/* 	padding-top:15px; */
+/* 	padding-bottom:15px; */
+}
+.navbar-brand > small{
+/* 	height: 40px; */
+/*     line-height: 40px; */
+}
+.navbar-brand:focus{
+	outline:none;
+}
+.ucg-logo-pic{
+	vertical-align: middle;
+    width: 200px;
+}
+.ucg-logo-pic.logo-pic-2{
+	position: relative;
+/*     top: -3px; */
+	width:30px;
+}
+
+/* 首页指标参数框，单独分离出来 */
+.ucg-dialog-titletab .infobox{
+	border-left:none;
+	border-top:none;
+	border-bottom:none;
+	margin:0;
+}
+.ucg-dialog-titletab .infobox:last-child{
+	border-right:none;
+}
+.ucg-dialog-titletab .infobox,
+.ucg-dialog-titletab .infobox .infobox-data{
+	height:100%;
+}

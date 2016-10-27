@@ -1,0 +1,113 @@
+@charset 'UTF-8';
+
+@import "css-reset";
+@import "tools";
+@import "declare";
+
+/*********************************全局样式*************************************** */
+html, body {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	color: @black;
+	font-size: 14px;
+	line-height: 1.3em;
+	font-family: "冬青黑体简体中文","Tahoma","Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif !important;
+	-webkit-font-smoothing: antialiased;
+}
+
+/*********************************通用样式*************************************** */
+.btn{
+	&:hover{
+		opacity: .8;
+		color: @white;
+	}
+	&:focus{
+		color: @white;
+		outline: none;
+	}
+}
+.btn-orange{
+	background: @orange;
+	color: @white;
+}
+
+/*********************************具体样式*************************************** */
+.share-page{
+	background: @bg-lightgrey;
+	padding: .8em;
+	.body-container{
+		background: @white;
+		border-radius: 5px;
+		overflow: hidden;
+	}
+	.top-color{
+		height: 12px;
+		background: @orange;
+	}
+	.top-inner{
+		padding: 2em 0 4em 0;
+		.avatar{
+			display: inline-block;
+			border: 5px solid #f2f2f2;
+			overflow: hidden;
+			border-radius: 80px;
+			img{
+				width: 80px;
+			}
+		}
+		> p{
+			margin-top: 1em;
+		}
+		.group-name{
+			color: @orange;
+			font-size: 15px;
+		}
+	}
+	.seperator{
+		height: 0;
+		border-top: 1px dashed #ddd;
+		position: relative;
+		.seperator-grey-circle(){
+			content: "";
+			position: absolute;
+			width: 15px;
+			height: 15px;
+			background:@bg-lightgrey;
+			border-radius: 50px;
+			top: -8px;
+		}
+		&:before{
+			.seperator-grey-circle();
+			left: -8px;
+		}
+		&:after{
+			.seperator-grey-circle();
+			right: -8px;
+		}
+	}
+	.bottom-inner{
+		padding: 1em 3em 2em;
+		.form-input{
+			padding: .8em .8em;
+			border: @border-grey;
+			border-radius: 50px;
+			width: 100%;
+			margin-bottom: 1em;
+			background: @bg-lightgrey-lighter-2;
+			input{
+				background: @bg-lightgrey-lighter-2;
+				width: 100%;
+				border: 0;
+			}
+		}
+		.form-btn{
+			text-align: center;
+			button{
+				border-radius: 50px;
+				padding: .8em 2em;
+			}
+		}
+	}
+	
+}

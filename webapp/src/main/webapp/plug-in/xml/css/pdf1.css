@@ -1,0 +1,177 @@
+@charset "utf-8";
+/* CSS comment */
+@page {
+	size: a4;
+	@top-center{content:element(header)};
+	@bottom-center {content: element(footer)};
+}
+.header {
+	position: running(header);
+	font-family: SimSun;
+	font-size: 12px;
+	border-bottom: 0.5px solid #000000;
+	text-align: right;
+}
+
+.footer {
+	position: running(footer);
+	font-size: 12px;
+	text-align: center;
+}
+
+#pagenumber:before {
+	content: counter(page);
+}
+
+#pagecount:before {
+	content: counter(pages);
+}
+
+body {
+	margin: 0px auto;
+	padding: 0px;
+	font-family: SimSun, Arial;
+	align: center;
+}
+
+table {
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+table,td,td,tr {
+	font-family: SimSun;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.TblList {
+	width: 690px;
+	cellpadding: 5px;
+	cellspacing: 5px;
+	font-size: 14.940px;
+	font-family: SimSun;
+	border: 1px solid black;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.TblListRCSX {
+	width: 690px;
+	cellpadding: 5px;
+	cellspacing: 5px;
+	font-size: 14.940px;
+	font-family: SimSun;
+	border: 0.5px solid black;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.TblList tr,td {
+	padding: 10px 5px 10px 5px;
+	border: 0.5px solid black;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.TblListRCSX tr,td {
+	padding: 6px 3px 6px 3px;
+	border: 0.5px solid black;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+.TblList_head td {
+	width: 690px;
+	padding-top: 20px;
+	font-size: 18.343px;
+	text-algin: left;
+	font-family: SimHei;
+	cellpadding: 0px； cellspacing:0px;
+	border: 0.5px sliver black;
+	border: white;
+}
+
+.first_page {
+	width: 690px;
+	cellpadding: 0px； cellspacing:0px;
+	border: 0.5px sliver black;
+	border: white;
+}
+
+.first_page_header {
+	border: white;
+	font-size: 17.074px;
+}
+
+.first_page_line {
+	padding: 0px;
+	border: white;
+	text-decoration: none;
+	border-bottom: 0.5px solid #000000;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.first_page_header2 {
+	border: white;
+	font-size: 17.074px;
+	padding-top: 20px;
+	font-family: SimHei;
+}
+
+.first_page_line2 {
+	border: white;
+	text-decoration: none;
+	border-bottom: 0.5px solid #000000;
+	padding-top: 20px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+.first_page_header1 {
+	border: white;
+	font-size: 17.074px;
+	font-family: SimHei;
+}
+
+.first_page_line1 {
+	border: white;
+	text-decoration: none;
+	border-bottom: 0.5px solid #000000;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.left_header {
+	width: 25px;
+	padding: 5px;
+	font-family: SimHei;
+}
+
+.one_page {
+	padding: 0px;
+	page-break-inside: avoid;
+	align: center;
+	page-break-before: always;
+}
+p{
+	text-indent: 2em ;
+	line-height: 1.5em ;
+	word-wrap: break-word;
+	margin:8px 0 0 0;
+}
+.content {
+	text-indent: 2em ;
+	line-height: 1.5em ;
+	word-wrap: break-word;
+	padding: 5px; 
+	vertical-align: text-top;
+	border:white;
+	
+}
+.first_page_header3 {
+    text-align:right;
+	border: white;
+	font-size: 17.074px;
+	padding-top: 20px;
+	font-family: SimHei;
+}

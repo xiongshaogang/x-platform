@@ -1,0 +1,317 @@
+@charset 'UTF-8';
+
+@import "declare";
+@import "animation.css";
+/*********************************全局样式*************************************** */
+html, body {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	color: @black;
+	font-size: 14px;
+	line-height: 1.3em;
+	font-family: "冬青黑体简体中文","Tahoma","Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif !important;
+	//-webkit-font-smoothing: antialiased;
+	-webkit-overflow-scrolling: touch; 
+}
+
+/*********************************通用样式*************************************** */
+.btn{
+	&:hover{
+		opacity: .8;
+		color: @white;
+	}
+	&:focus{
+		color: @white;
+		outline: none;
+	}
+}
+.btn-orange{
+	background: @orange;
+	color: @white;
+}
+
+//加载中。。。样式
+.sys-loading{
+	.masker{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: @black;
+		opacity: .5;
+		z-index: 100;
+	}
+	.sys-loading-content{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 50px;
+		height: 50px;
+		margin-top: -25px;
+		margin-left: -25px;
+		z-index: 101;
+		img{
+			width: 50px;
+			height: 50px;
+			
+			animation: my-whirl 1s linear infinite;
+			-ms-animation: my-whirl 1s linear infinite; 			/* IE 9 */
+			-moz-animation: my-whirl 1s linear infinite; 			/* Firefox */
+			-webkit-animation: my-whirl 1s linear infinite; 		/* Safari and Chrome */
+			-o-animation: my-whirl 1s linear infinite; 			/* Opera */
+		}
+	}
+}
+//弹窗
+.modal-dialog{
+	width: 680px;
+	color: @black;
+	margin: 30px auto;
+	.modal-header{
+		background: @bg-lightgrey-lighter-2;
+	}
+	.modal-footer{
+		padding: 9px 15px;
+		.btn{
+			padding: .3em 1em;
+		}
+	}
+	.modal-title{
+		color: @black;
+		text-align: center;
+	}
+	.modal-body{
+		background: @bg-lightgrey-lighter;
+		.top{
+			line-height: 22px;
+			position: relative;
+			bottom: 8px;
+		}
+	}
+	.person-box{
+		background: @white;
+		border: @border-lightgrey;
+		height: 380px;
+		overflow-y: auto;
+		.person-list{
+			//width: 315px;
+			li{
+				height: 50px;
+				padding: 10px 1em;
+				position: relative;
+				&:hover,&.selected{
+					background: @bg-lightgrey-lighter;
+				}
+			}
+			.avatar{
+				float: left;
+				img{
+					width: 33px;
+					height: 33px;
+					border-radius: 50px;
+				}
+			}
+			.name{
+				p{
+					line-height: 30px;
+					margin-left: 3em;
+				}
+			}
+			.status{
+				position: absolute;
+				right: 1em;
+				top: 16px;
+				border: @border-lightgrey;
+				border-radius: 50px;
+				width: 18px;
+				height: 18px;
+				text-align: center;
+				background: @white;
+				cursor: pointer;
+				i{
+					color: @white;
+					font-size: 12px;
+					display: none;
+				}
+				&.ok{
+					background: @green;
+					border: @green;
+					i.glyphicon-ok{
+						display: inline-block;
+					}
+					i.glyphicon-remove{
+						display: none;
+					}
+				}
+				&.remove{
+					background: @light-grey + #333;
+					border: @light-grey + #333;
+					i.glyphicon-ok{
+						display: none;
+					}
+					i.glyphicon-remove{
+						display: inline-block;
+					}
+				}
+			}
+		}
+		//选人框分区域选择不同类型的目标（角色，人员，团队，等。）
+		.pb-item{
+			.header{
+				.sys-header();
+				padding: 0 .8em;
+			}
+		}
+	}
+	
+	//搜索&已选择联系人区域
+	.selected-box{
+		.person-box{
+			width: 315px;
+		}
+	}
+	//选择联系人区域
+	.all-person-box{
+		.search{
+			float: right;
+			background: @white;
+			padding: 0 .5em;
+			border-radius: 50px;
+			overflow: hidden;
+			input{
+				border: 0;
+			}
+			.glyphicon{
+				color: @light-grey;
+			}
+		}
+		.person-box{
+			width: 315px;
+		}
+	}
+	//审批人
+	.person-list.approval-flow{
+		padding: 1em;
+		.sys-selected-person();
+	}
+	&.single-select{
+		.person-box{
+			width: 647px;
+			.name p{
+				margin-left: 0;
+			}
+		}
+	}
+	.top-left-span{
+		display: inline-block;
+	}
+	.top-left-btn{
+		display: none;
+	}
+	//带全选的弹框
+	&.with-select-all{
+		.glyphicon-arrow-right{
+			display: none;
+		}
+		.top-left-span{
+			display: none;
+		}
+		.top-left-btn{
+			display: inline-block;
+			a, a:hover{
+				cursor: pointer;
+				color: @orange;
+				text-decoration: none;
+			}
+		}	
+	}
+	//右侧滑出框
+	.menu-pannel-pop{
+		top: @menu-pannel-pop-header-height + 1;
+		.body{
+			height: 468px;
+			.group-setting-body-container{
+				height: 413px;
+			}
+		}
+	}
+}
+.in-iframe{
+	.modal-dialog{
+		margin: 4px auto;	
+	}	
+}
+
+//任务表单样式，PC&移动端通用
+.content-pannel{
+	.header{
+		.sys-header();
+		text-align: center;
+		position: relative;
+		.btn-left{
+			//float: left;
+			color: @light-grey;
+			padding: 0 1em 0 1em;
+			position: absolute;
+			left: 0;
+			cursor: pointer;
+			i{
+				font-size: 22px;
+			}
+			img{
+				width: 20px;
+				height: 20px;
+				position: relative;
+				top: 5px;
+			}
+		}
+		.btn-right{
+			position: absolute;
+			right: 0;
+			top: 0;
+			cursor: pointer;
+			color: @light-grey;
+			i{
+				font-size: 18px;
+			}
+			img{
+				width: 20px;
+				height: 20px;
+				position: relative;
+				top: 5px;
+			}
+		}
+		.dropdown-btn{
+			position: absolute;
+			right: 0;
+			top: 0;
+			padding: 0 1em;
+			width: 100px;
+			text-align: right;
+		}
+		.dropdown{
+			z-index: 151;
+			background: @white;
+			border: @border-grey;
+			margin-top: -1px;
+			display: none;
+			top: 40px;
+			li{
+				border-bottom: @border-grey;
+				padding: .5em .8em;
+				line-height: 1.5;
+				&:last-child{
+					border-bottom: 0;
+				}
+				&.not-start{
+					color: @black;
+				}
+			}
+			&.open{
+				display: block;
+			}
+		}
+	}
+}

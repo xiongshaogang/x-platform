@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xplatform.base.orgnaization.user.mybatis.dao.UserMybatisDao">
+	<!-- <resultMap id="UserInfoMap" type="EmpUserVo">
+		<result column="userId" property="userId" />
+		<result column="userCode" property="userCode" />
+		<result column="empCode" property="empCode" />
+		<result column="userName" property="userName" />
+		<result column="password" property="password" />
+		<result column="email" property="email" />
+		<result column="description" property="description" />
+		<result column="email" property="email" />
+		<result column="userType" property="userType" />
+		<result column="userTypeId" property="userTypeId" />
+		<result column="flag" property="flag" />
+		<result column="active" property="active" />
+		<result column="locked" property="locked" />
+		<result column="portraitUrl" property="portraitUrl" />
+		<result column="loginNum" property="loginNum" />
+		
+		<result column="empId" property="empId" />
+		<result column="empName" property="empName" />
+	    <result column="empSex" property="empSex" />
+		<result column="empBirthday" property="empBirthday" />
+		<result column="empCardType" property="empCardType" />
+		<result column="empCardNo" property="empCardNo" />
+		<result column="empEnterDate" property="empEnterDate" />
+		<result column="empRegularDate" property="empRegularDate" />
+		<result column="empLeaveDate" property="empLeaveDate" />
+		<result column="jobState" property="jobState" />
+		<result column="jobPhone" property="jobPhone" />
+		<result column="jobEmail" property="jobEmail" />
+		<result column="jobPost" property="jobPost" />
+		<result column="jobFax" property="jobFax" />
+		<result column="qq" property="qq" />
+		<result column="jobAddress" property="jobAddress" />
+		<result column="empTelephone" property="empTelephone" />
+		<result column="empPhone" property="empPhone" />
+		<result column="empMsn" property="empMsn" />
+		<result column="empAddress" property="empAddress" />
+		<result column="empEmail" property="empEmail" />
+		<result column="empPost" property="empPost" />
+		<result column="empPoliticsStatus" property="empPoliticsStatus" />
+		<result column="empMaritalStatus" property="empMaritalStatus" />
+		<result column="portrait80" property="portrait80" />
+		<result column="portrait230" property="portrait230" />
+		
+		<result column="jobId" property="mainJobId" />
+		<result column="jobName" property="mainJobName" />
+		
+		<result column="deptId" property="mainDeptId" />
+		<result column="deptName" property="mainDeptName" />
+		
+		<result column="orgId" property="mainOrgId" />
+		<result column="orgName" property="mainOrgName" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+	
+	<resultMap id="EmpDeptInfoMap" type="EmpDeptVo">
+	 <result column="id" property="empid" />
+	 <result column="empName" property="empName" />
+	 <result column="code" property="empCode" />
+	 <result column="sex" property="empSex" />
+	 <result column="phone" property="empPhone" />
+	 <result column="jobPhone" property="empJobphone" />
+	 <result column="deptName" property="deptName" />
+	 <result column="empDeptId" property="empDeptId" />
+	 <result column="createTime" property="createTime" />
+	</resultMap>
+	
+	
+	<select id="getUserInfo" parameterType="hashmap" resultMap="UserInfoMap">
+		select u.id as userId,u.code as userCode,u.user_name userName,u.email,u.user_type userType,u.user_type_id as userTypeId,u.flag,u.locked,u.active,
+			   e.id empId,e.name empName,e.sex empSex,e.birthday empBirthday,e.card_type empCardType,e.card_no empCardNo,
+			   e.enter_date empEnterDate,e.retular_date empRegularDate,e.leave_date empLeaveDate,e.job_sate jobState,
+			 e.job_phone jobPhone,e.job_email jobEmail,e.job_post job_post,e.job_fax jobFax,e.qq,
+			 e.job_address jobAddress,e.telephone empTelephone,e.phone empPhone,e.msn empMsn,e.address empAddress,e.email empEmail,
+			 e.politics_status  empPoliticsStatus,e.marital_status  empMaritalStatus,
+			 case
+				  when e.portrait80 is null then 'plug-in/assets/avatars/avatar_80.png'
+				  when e.portrait80='' then 'plug-in/assets/avatars/avatar_80.png'
+				  else e.portrait80
+			 end portrait80,
+			 e.portrait230,
+			 e.politics_status politicsStatus,e.marital_status maritalStatus,
+			 e.job_id jobId,e.job_name jobName,e.dept_id deptId,e.dept_name deptName,e.org_id orgId,e.org_name orgName
+		from (select *from t_org_user t where t.id=#{userId} ) u
+		LEFT JOIN t_org_employee e on u.user_type_id=e.ID where e.id=#{empId}
+	</select>
+	
+	<select id="queryAuthorityUserByPage" parameterType="Page" resultMap="UserInfoMap">
+		select u.create_time createTime,u.id as userId,u.code userCode,u.user_name userName,
+				u.email,u.user_type userType,u.user_type_id,u.flag,u.locked,u.active,
+				e.name empName,e.sex empSex,e.birthday empBirthday,e.card_type empCardType,e.card_no empCardNo,e.enter_date empEnterDate,e.retular_date empRegularDate,e.leave_date empLeaveDate,e.job_sate jobState,
+			 e.job_phone jobPhone,e.job_email jobEmail,e.job_post job_post,e.job_fax jobFax,e.qq,e.job_address jobAddress,e.telephone empTelephone,e.phone,e.msn empMsn,e.address empAddress,e.email empEmail,
+			 e.politics_status  empPoliticsStatus,e.marital_status  empMaritalStatus,
+			 e.job_id jobId,e.job_name jobName,e.dept_id deptId,e.dept_name deptName,e.org_id orgId,e.org_name orgName
+		from 
+		(select u1.*  from t_org_user u1 where u1.flag='Y') u
+		LEFT JOIN t_org_employee e on u.user_type_id=e.ID
+		查询条件
+		where 1=1
+		<if test="parameter.userName != null and parameter.userName !=''">
+          AND  UPPER(u.user_name) LIKE '%${parameter.userName}%'
+		</if>
+		<if test="parameter.code != null and parameter.code !=''">
+          AND  UPPER(u.code) LIKE '%${parameter.code}%'
+		</if>
+		<if test="parameter.empName != null and parameter.empName !=''">
+          AND  UPPER(e.name) LIKE '%${parameter.empName}%'
+		</if>
+		ORDER BY ${orderBy} ${order} 
+	</select>
+	<select id="queryEmpDeptByPage" parameterType="Page" resultMap="EmpDeptInfoMap">
+	      select 
+	            toe.id,
+	            toe.name as empName,
+	            toe.code,
+	            toe.sex,
+	            toe.phone,
+	            toe.job_phone as jobPhone,
+	            tod.name  as deptName,
+	            toed.id as empDeptId,
+	            tod.create_time createTime
+	            from t_org_dept tod 
+	            left join t_org_emp_dept toed 
+	               on tod.id = toed.org_id 
+	            left join t_org_employee toe 
+	               on toe.id=toed.emp_id 
+	            left join t_org_user tou 
+	               on tou.user_type_id=toe.id and tou.user_type='employee' 
+	            where 1=1 
+	            <if test="parameter.deptId != null and parameter.deptId !=''">
+		          and tod.id=#{parameter.deptId} 
+				</if>
+	            and tou.id is null
+	            ORDER BY ${orderBy} ${order} 
+	</select> -->
+	
+	<resultMap id="Message" type="Map">
+		<id column="id" property="id" />
+		<result column="treeIndex" property="treeIndex" />
+	</resultMap>
+	
+	<select id="getUserOrgTreeIndex" parameterType="Page" resultMap="Message">
+	select  DISTINCT o.treeIndex as treeIndex,o.id from t_org_orgnaization o,t_org_user_org ej where  ej.orgId = o.id and ej.userId = #{userId}
+	</select>
+	
+	
+</mapper>

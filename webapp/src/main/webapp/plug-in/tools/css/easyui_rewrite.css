@@ -1,0 +1,200 @@
+@charset "utf-8";
+
+/* 调整表格行样式 */
+.datagrid-header td, .datagrid-body td, .datagrid-footer td{
+	border-width: 0;
+}
+.datagrid-row-alt{
+	background-color: #f5f5f5;
+}
+.datagrid-row-selected,
+.datagrid-row-over{
+	background-color: #eee;
+	color: #000;
+}
+
+.datagrid-header-check,
+.datagrid-cell-check {
+  padding: 0;
+  width: 27px;
+  height: 33px;
+  font-size: 1px;
+  text-align: center;
+  overflow: hidden;
+}
+.datagrid-header-check input,
+.datagrid-cell-check input {
+  margin: 0;
+  padding: 0;
+  width: 15px;
+  height: 33px;
+  opacity: 1;
+  position:inherit;
+  left:0;
+}
+
+.datagrid-header-row,
+.datagrid-row {
+  height: 33px;
+}
+/* 弹窗  */
+.window{
+	padding: 0;
+	border-radius: 0;
+}
+.window .window-header{
+	padding: 15px 10px;
+}
+.window .dialog-button{
+	padding: 10px;
+	background: #fff none repeat scroll 0 0;
+}
+.window .window-header .panel-icon, .window .window-header .panel-tool{
+	margin-top: -7px;
+}
+.window .window-header .panel-tool{
+	right: 5px;
+}
+.window, .window .window-body{
+	border-left-width: 0;
+	border-right-width: 0;
+	background: #fff none repeat scroll 0 0;
+	/* box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); */
+}
+/* 调整按钮样式 */
+.l-btn{
+	border-radius: 0;
+	background: none;
+}
+.l-btn-plain:hover{
+	border-radius: 5px;
+	border-color: #ddd;
+}
+.l-btn-icon{
+	font-size: 12px;
+}
+.l-btn-text{
+	line-height: 23px;
+}
+
+/* panel头部高度调为40 */
+.panel-header{
+	 padding: 10px 10px;
+	/*border-bottom: 0; */
+	background: #fff none repeat scroll 0 0;
+    /* box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); */
+    color: #555;
+     /* box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);  */
+    /* min-height: 35px;
+    padding-left: 12px;
+    position: relative;
+    text-align: right; */
+}
+.panel-body{
+	 box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* .collapse-title-wrapdiv .panel-header{
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+} */
+.panel-body,.panel-header{
+	border-width: 0px;
+    border-style: solid;
+}
+.panel-header{
+	border-bottom:0px solid #ddd;
+	z-index:1;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.window .panel-body{
+	box-shadow: none;
+	/* box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);   */
+}
+.layout-panel .panel-header{
+     /*  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);  */ 
+} 
+.panel{
+	background: #fff none repeat scroll 0 0;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); 
+    border:0;
+}
+.easyui-layout {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.panel-title {
+    color: #555;
+    font-size: 13px;
+    height: 16px;
+    font-weight: inherit;
+    line-height: 16px;
+}
+/* 删除表格行首的index数字背景 */
+.datagrid-header, .datagrid-td-rownumber{
+	background: none;
+}
+/* 分页栏select框和input框高度统一 */
+.pagination .pagination-num{
+	height: 20px;
+}
+/* 去掉弹框的边框 */
+.tabs-panels{
+	border: 0;
+}
+/* 去掉弹框顶部多余的边框 */
+.window,
+.window .window-body-noheader{
+	border-top: 0;
+}
+/* 增加遮罩层的颜色深度 */
+.window-proxy-mask, .window-mask{
+	background: #777;
+}
+
+
+/* datagrid搜索框按钮 */
+.search_button_area .easyui-linkbutton,
+.window .dialog-button .l-btn{
+	border: 0;
+	border-radius: 5px;
+	background: #67B0DE;
+	color: #fff;
+}
+.search_button_area .easyui-linkbutton,
+.window .dialog-button .l-btn{
+	background: #67B0DE;
+}
+.search_button_area .easyui-linkbutton:hover,
+.window .dialog-button .l-btn:hover{
+	background: #80C7F3;
+}
+
+/* confirm,alert之类弹框按钮修改 */
+.messager-button .l-btn{
+	background-color: #67B0DE;
+	border: 0;
+	color: #fff;
+	border-radius: 4px;
+	width: 55px;
+}
+.messager-button .l-btn:hover{
+	background-color: #80C7F3;
+}
+
+.tree-node-selected {
+   /*  background: #ccc none repeat scroll 0 0; */
+    color:#fff;
+}
+
+.tree-node-selected .icon-color{
+	color:#fff;
+}
+
+.tree-node {
+  height: 33px;
+  line-height:32px;
+}
+
+.tree-title {
+  height: 33px;
+  line-height: 33px;
+}

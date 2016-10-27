@@ -1,0 +1,148 @@
+.approveContentDiv {
+	width: 95%;
+	margin: 30px auto 0px auto;
+	clear: both;
+	background-color: #F8F9FA;
+}
+
+.approveContentTable {
+	border: 1px solid #d3d3d3;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.approveContentTable td,.approveContentTable th {
+	border-right: 1px solid #d3d3d3;
+	border-top: 1px solid #d3d3d3;
+	border-right: 1px solid #d3d3d3;
+}
+
+.approve_table_title {
+	height: 30px;
+	text-align: center;
+}
+
+.approve_table_content {
+	height: 210px;
+	vertical-align: top;
+}
+
+.approve_table_content_div {
+	height: 210px;
+	overflow: auto;
+}
+
+.approve_table_opnion {
+	width: 100%;
+	height: 100%;
+	resize: none;
+	padding: 0;
+	margin: 0;
+	/* 	border: 1px solid #4570a3; */
+	border: none;
+}
+
+.approve_table_pt {
+	height: 40px;
+	line-height: 40px;
+}
+
+.approve_table_pt div {
+	width: 50%;
+	display: inline-block;
+}
+
+.approve_conclusion {
+	margin-left: 15px;
+	/* 	float: left; */
+}
+
+.approve_conclusion .combo {
+	border: none;
+}
+
+.approve_conclusion .combo input,.approve_conclusion .combo span {
+	background-color: #f8f9fa;
+}
+
+.approve_person {
+	/* 	float: right; */
+	
+}
+
+.approve_time {
+	margin-right: 15px;
+	/* 	float: right; */
+}
+
+.approve_conclusion,.approve_person,.approve_time {
+	height: 40px;
+	line-height: 40px;
+}
+
+.matterDiv {
+	height: 30px;
+	border-bottom: 1px solid #d3d3d3;
+	background-color: #F8F9FA;
+}
+
+.matterSign {
+	margin-left: 5px;
+	vertical-align: center;
+	float: left;
+	/* 	color: #FF0000; */
+	float: left;
+}
+
+.matterName {
+	margin-left: 5px;
+	float: left;
+	color: #4570A3;
+}
+
+.matterCheck {
+	float: right;
+	margin-right: 5px;
+	vertical-align: -2px;
+}
+
+.matterCheckbox {
+	vertical-align: -2px;
+}
+
+.matterSign,.matterName,.matterCheck {
+	height: 30px;
+	line-height: 30px;
+}
+
+.flow_button_div {
+	float:right;
+}
+
+.flow_button_group {
+	display: inline-block;
+	margin-right: 5px;
+	width: 90px;
+	height: 45px;
+}
+
+.flow_button_check {
+	width: 100px;
+}
+
+.flow_button_more {
+	
+}
+
+.flow_button_checkbox {
+	vertical-align: -2px;
+	margin-right: 3px !important;
+}
+
+.flow_button {
+	color: #4570a3;
+}
+
+.flow_button:hover {
+	color: red;
+}

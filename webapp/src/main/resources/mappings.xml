@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="cacheEnabled" value="false"/>
+	</settings>
+	<typeAliases>
+	<!-- 平台配置  -->
+		<typeAlias alias="Page" type="com.xplatform.base.framework.mybatis.entity.Page"/>
+        <typeAlias alias="ModuleTreeVo" type="com.xplatform.base.orgnaization.module.mybatis.vo.ModuleTreeVo"/>
+        <typeAlias alias="ResourceVo" type="com.xplatform.base.orgnaization.resouce.mybatis.vo.ResourceVo"/>
+        <typeAlias alias="OrgTreeVo" type="com.xplatform.base.orgnaization.orgnaization.mybatis.vo.OrgTreeVo"/>
+        <typeAlias alias="UserVo" type="com.xplatform.base.orgnaization.user.entity.UserEntity"/>
+        <typeAlias alias="RoleVo" type="com.xplatform.base.orgnaization.role.mybatis.vo.RoleVo"/>
+        <typeAlias alias="TypeTreeVo" type="com.xplatform.base.system.type.mybatis.vo.TypeTreeVo"/>
+        <typeAlias alias="AttachVo" type="com.xplatform.base.system.attachment.mybatis.vo.AttachVo"/>
+        <typeAlias alias="InnerMessageVo" type="com.xplatform.base.system.message.config.mybatis.vo.InnerMessageVo"/>
+        
+        <typeAlias alias="ExecutionVo" type="org.activiti.engine.impl.persistence.entity.ExecutionEntity" />
+		<typeAlias alias="ProcessExecutionVo" type="com.xplatform.base.workflow.execution.mybatis.vo.ProcessExecution" />
+		<typeAlias alias="TaskVarsVo" type="com.xplatform.base.workflow.task.mybatis.vo.TaskVars" />
+		<typeAlias alias="NodeUserVo" type="com.xplatform.base.workflow.node.mybatis.vo.NodeUserVo" />
+		<typeAlias alias="ProcessTaskVo" type="com.xplatform.base.workflow.task.mybatis.vo.ProcessTask" />
+		<typeAlias alias="TaskUserVo" type="com.xplatform.base.workflow.task.mybatis.vo.TaskUser" />
+		<typeAlias alias="TaskSignDataVo" type="com.xplatform.base.workflow.task.mybatis.vo.TaskSignDataVo" />
+		<typeAlias alias="InstanceVo" type="com.xplatform.base.workflow.instance.mybatis.vo.InstanceVo" />
+		<typeAlias alias="HistoricProcessInstanceVo" type="org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntity" />
+		<typeAlias alias="HistoricActivityInstanceVo" type="org.activiti.engine.impl.persistence.entity.HistoricActivityInstanceEntity" />
+		<typeAlias alias="HistoricTaskInstanceVo" type="org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntity" />
+		<typeAlias alias="HistoricProcessTaskVo" type="com.xplatform.base.workflow.history.mybatis.vo.ProcessTaskHistory" /> 
+    </typeAliases>
+
+    <plugins>
+    	
+    	<plugin interceptor="com.xplatform.base.framework.mybatis.plugin.MyBatisExtPlugin">
+    		<property name="database.dialect" value="mysql"/>
+    		<property name="page.regex" value=".*ByPage"/>
+    		<property name="insert.regex" value=".*.save[A-Za-z]*"/>
+    		<property name="update.regex" value=".*.update[A-Za-z]*"/>
+    	</plugin>
+    	
+    </plugins>
+	
+</configuration>

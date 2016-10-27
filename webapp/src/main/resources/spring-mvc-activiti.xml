@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="idGenerator" class="com.xplatform.base.workflow.generator.DbIdGenerator"></bean>
+
+	<bean id="processEngineConfiguration"
+		class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" /> 
+		<property name="dbIdentityUsed" value="false" /> 
+		<property name="transactionManager" ref="transactionManager" /> 
+		<property name="databaseSchemaUpdate" value="false" />
+		<property name="jobExecutorActivate" value="false" />
+		<!-- 
+		<property name="idGenerator" ref="idGenerator" />
+		 -->
+	</bean>
+	
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+	
+	<bean id="taskUserAssignService" class="com.xplatform.base.workflow.threadlocal.TaskUserAssignService"></bean>
+	
+	<bean id="userCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateUser"></bean>
+	<bean id="deptCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateDept"></bean>
+	<bean id="roleUserCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateRole"></bean>
+	<bean id="startUserCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateStartUser"></bean>
+	<bean id="startUserDeptChargeCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateStartUserDeptCharge"></bean>
+	<bean id="startUserDirectLeaderCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateStartUserDirectLeader"></bean>
+	<bean id="startUserBranchLeaderCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateStartUserBranchLeader"></bean>
+	<bean id="taskCadidateSameCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateTaskCadidateSame"></bean>
+	<bean id="taskExecutorDeptChargeCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateTaskExecutorDeptCharge"></bean>
+	<bean id="taskExecutorDirectLeaderCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateTaskExecutorDirectLeader"></bean>
+	<bean id="taskExecutorBranchLeaderCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateTaskExecutorBranchLeader"></bean>
+	<bean id="taskExecutorSameCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateTaskExecutorSame"></bean>
+	<bean id="manualExecutorCalculation" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateManualExecutorCalculation"></bean>
+	<bean id="nodeUserCalculateSelector" class="com.xplatform.base.workflow.core.facade.caculateuser.impl.NodeUserCalculateSelectorImpl">
+		<property name="nodeUserCalculate">
+			<map>
+				<entry key="user" value-ref="userCalculation" />
+				<entry key="dept" value-ref="deptCalculation" />
+				<entry key="role" value-ref="roleUserCalculation" />
+				<entry key="startUser" value-ref="startUserCalculation" />
+				<entry key="startUserDeptCharge" value-ref="startUserDeptChargeCalculation" />
+				<entry key="startUserDirectLeader" value-ref="startUserDirectLeaderCalculation" />
+				<entry key="startUserBranchLeader" value-ref="startUserBranchLeaderCalculation" />
+				<entry key="taskCadidateSame" value-ref="taskCadidateSameCalculation" />
+				<entry key="taskExecutorDeptCharge" value-ref="taskExecutorDeptChargeCalculation" />
+				<entry key="taskExecutorDirectLeader" value-ref="taskExecutorDirectLeaderCalculation" />
+				<entry key="taskExecutorBranchLeader" value-ref="taskExecutorBranchLeaderCalculation" />
+				<entry key="taskExecutorSame" value-ref="taskExecutorSameCalculation" />
+				<entry key="manualExecutor" value-ref="manualExecutorCalculation" />
+			</map>
+		</property> 
+	</bean> 
+	
+	<!--
+   	状态说明：-1:正在审批，0：弃权,1:同意,2:反对,3:驳回,4,追回,5:会签通过,6:会签不通过
+   	14,终止,33.提交,34,重新提交,37.执行过(脚本使用)
+   	用户可以修改状态对应的颜色值，修改图片的颜色。
+   	-->
+    <bean id="statusColorMap" class="java.util.HashMap">  
+   		<constructor-arg>  
+       		<map>
+      				<entry key="1" value="#00FF00"></entry>
+      				<entry key="0" value="#FFA500"></entry>
+      				<entry key="-1" value="#FF0000"></entry>
+      				<entry key="2" value="#0000FF"></entry>
+      				<entry key="3" value="#8A0902"></entry>
+      				<entry key="4" value="#023B62"></entry>
+      				<entry key="5" value="#338848"></entry>
+      				<entry key="6" value="#82B7D7"></entry>
+      				<entry key="7" value="#FFE76E"></entry>
+      				<entry key="14" value="#EEAF97"></entry>
+      				<entry key="33" value="#F89800"></entry>
+      				<!-- 
+      				<entry key="34" value="#FFE76E"></entry>
+      				 -->
+      				<entry key="37" value="#C33A1F"></entry>
+      			</map>
+   		</constructor-arg>  
+	</bean> 
+	
+	<!--
+   	状态说明：-1:正在审批，0：弃权,1:同意,2:反对,3:驳回,4,追回,5:会签通过,6:会签不通过
+   	14,终止,33.提交,34,重新提交,37.执行过(脚本使用)
+   	用户可以修改状态对应的颜色值，修改图片的颜色。
+   	-->
+    <bean id="statusNameMap" class="java.util.HashMap">  
+   		<constructor-arg>  
+       		<map>
+       				<entry key="-2" value="初始化"></entry>
+      				<entry key="-1" value="审核中"></entry>
+      				<entry key="0" value="弃权"></entry>
+      				<entry key="1" value="同意"></entry>
+      				<entry key="2" value="反对"></entry>
+      				<entry key="3" value="驳回"></entry>
+      				<entry key="4" value="撤销"></entry>
+      				<entry key="5" value="会签通过"></entry>
+      				<entry key="6" value="会签不通过"></entry>
+      				<entry key="7" value="会签再议"></entry>
+      				<entry key="8" value="改变路径"></entry>
+      				<entry key="9" value="通知"></entry>
+      				<entry key="14" value="终止"></entry>
+      				<entry key="15" value="沟通"></entry>
+      				<entry key="16" value="完成转发"></entry>
+      				<entry key="18" value="删除"></entry>
+      				<entry key="19" value="抄送"></entry>
+      				<entry key="20" value="反馈"></entry>
+      				<entry key="21" value="转发"></entry>
+      				<entry key="23" value="改变执行人"></entry>
+      				<entry key="24" value="驳回到第一个节点"></entry>
+      				<entry key="26" value="代理"></entry>
+      				<entry key="28" value="意见"></entry>
+      				<entry key="33" value="提交"></entry>
+      				<entry key="34" value="重新提交"></entry>
+      				<entry key="37" value="执行过(脚本使用)"></entry>
+      			</map>
+   		</constructor-arg>  
+	</bean>
+	
+</beans>

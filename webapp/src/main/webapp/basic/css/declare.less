@@ -1,0 +1,117 @@
+@charset "utf-8";
+
+/*********************************全局变量声明******************************** */
+
+//*****************************size
+@sysWidth: 980px;
+@sysHeight: 602px;
+
+//所有容器header统一高度
+@sys-header-height: 40px;
+//所有容器footer统一高度
+@sys-footer-height: 55px;
+
+@body-height: 543px;
+@content-pannel-width: 550px;
+@sys-left-width: 360px;
+@sub-menu-pannel-list-title-height: @sys-header-height;
+@chat-top-bar-height: @sys-header-height;
+@chat-box-container-height: 360px;
+@menu-pannel-pop-header-height: @sys-header-height;
+@menu-pannel-pop-footer-height: @sys-footer-height;
+
+//系统最左侧三个按钮的高度（非header高度）
+@main-menus-li-size: 40px;
+
+//表单字段统一高度
+@form-field-height: 35px;
+
+//表单字段label宽度
+@form-field-label-width: 9em;
+
+//*****************************color
+@white: #fff;
+@black: #000;
+@orange: #F37836;
+@red: #f00;
+@green: #5EE04E;
+@grey: #888;
+@light-grey: #aaa;
+@deep-grey: #666;
+
+//*****************************background-color
+@bg-lightgrey: #e4e4e4;
+@bg-lightgrey-lighter: #f2f2f2;
+@bg-lightgrey-lighter-2: #fbfbfb;
+
+//*****************************border
+@border-grey: 1px solid #c9c9c9;
+@border-lightgrey: 1px solid #efefef;
+@border-orange: 1px solid @orange;
+@border-color-lightgrey: #efefef;
+@border-color-grey: #c9c9c9;
+
+
+/*********************************全局Mixins声明******************************** */
+.my-transition(@attr, @period) {
+	transition: @attr @period;
+	-moz-transition: @attr @period; /* Firefox */
+	-webkit-transition: @attr @period; /* Safari and Chrome */
+	-o-transition: @attr @period; /* Opera */
+	-ms-transition: @attr @period; /* Opera */
+}
+.logofont-style(){
+	font-family: 'Century Gothic Cursiva', 'Century Gothic';
+	font-style: italic;
+}
+.sys-header(){
+	height: @sub-menu-pannel-list-title-height;
+	line-height: @sub-menu-pannel-list-title-height;
+	font-size: 14px;
+	border-bottom: @border-grey;
+	background: @bg-lightgrey-lighter-2;
+}
+//已选择的人员List
+.sys-selected-person(){
+	li{
+		padding: 0;
+		position: relative;
+		height: 65px;
+		width: 65px;
+		margin-right: 25px;
+		&:last-child{
+			.glyphicon-arrow-right{
+				display: none;
+			}
+		}
+	}
+	.item-person{
+		text-align: center;
+		.avatar{
+			float: none;
+			margin-top: 10px;
+		}
+		.name{
+			p{
+				margin: 0;
+				width: 65px;
+				line-height: 20px;
+			}
+		}
+	}
+	.glyphicon{
+		position: absolute;
+		color: @light-grey;
+		&-remove{
+			color: @light-grey + #333;
+			top: 0;
+			right: 0;
+			cursor: pointer;
+			font-size: 12px;
+		}
+		&-arrow-right{
+			right: -19px;
+			top: 21px;
+		}
+	}
+}

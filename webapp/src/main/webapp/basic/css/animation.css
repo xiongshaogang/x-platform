@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+@keyframes my-scale{
+	0%		{opacity: 0; background-size: 300px; height: 300px; width: 300px;}
+	33% 	{display: 0; background-size: 200px; height: 200px; width: 200px;}
+	80% 	{opacity: 0; background-size: 200px; height: 200px; width: 200px;}
+	100%	{opacity: 1; background-size: 100px; height: 100px; width: 100px;}
+}
+@-moz-keyframes my-scale{
+	0%		{opacity: 0; background-size: 300px; height: 300px; width: 300px;}
+	33% 	{display: 0; background-size: 200px; height: 200px; width: 200px;}
+	80% 	{opacity: 0; background-size: 200px; height: 200px; width: 200px;}
+	100%	{opacity: 1; background-size: 100px; height: 100px; width: 100px;}
+}
+@-webkit-keyframes my-scale{
+	0%		{opacity: 0; background-size: 300px; height: 300px; width: 300px;}
+	33% 	{display: 0; background-size: 200px; height: 200px; width: 200px;}
+	80% 	{opacity: 0; background-size: 200px; height: 200px; width: 200px;}
+	100%	{opacity: 1; background-size: 100px; height: 100px; width: 100px;}
+}
+@-o-keyframes my-scale{
+	0%		{opacity: 0; background-size: 300px; height: 300px; width: 300px;}
+	33% 	{display: 0; background-size: 200px; height: 200px; width: 200px;}
+	80% 	{opacity: 0; background-size: 200px; height: 200px; width: 200px;}
+	100%	{opacity: 1; background-size: 100px; height: 100px; width: 100px;}
+}
+
+@keyframes my-whirl{
+	0% {
+		transform: rotate(0deg);
+		-ms-transform: rotate(0deg);		/* IE 9 */
+		-webkit-transform: rotate(0deg);	/* Safari and Chrome */
+		-o-transform: rotate(0deg);		/* Opera */
+		-moz-transform: rotate(0deg);		/* Firefox */
+	}
+	50% {
+		transform: rotate(180deg);
+		-ms-transform: rotate(180deg);		/* IE 9 */
+		-webkit-transform: rotate(180deg);	/* Safari and Chrome */
+		-o-transform: rotate(180deg);		/* Opera */
+		-moz-transform: rotate(180deg);		/* Firefox */
+	}
+	100% {
+		transform: rotate(360deg);
+		-ms-transform: rotate(360deg);		/* IE 9 */
+		-webkit-transform: rotate(360deg);	/* Safari and Chrome */
+		-o-transform: rotate(360deg);		/* Opera */
+		-moz-transform: rotate(360deg);		/* Firefox */
+	}
+}

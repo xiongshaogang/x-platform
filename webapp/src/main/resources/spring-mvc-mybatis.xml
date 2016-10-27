@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<description>Spring IBatis公共配置 </description>
+
+
+	<!-- define the SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mappings.xml" />
+		<property name="mapperLocations">
+			<list>
+				<!--表示在mapper包所有目录中，以-Mapper.xml结尾所有文件-->
+				<value>classpath*:com/xplatform/base/**/mybatis/mapper/*.xml</value>
+			</list>
+		</property>
+	</bean>
+<!-- 	<bean id="sqlSessionFactory" class="com.xplatform.base.framework.mybatis.plugin.rewrite.MySqlSessionFactoryBean"> -->
+ 		<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> --> 
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 		<property name="configLocations"> -->
+<!-- 			<list> -->
+<!-- 				<value>classpath:mybatis-mappings-*.xml</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="mapperLocations"> -->
+<!-- 			<list> -->
+<!-- 				表示在mapper包所有目录中，以-Mapper.xml结尾所有文件 -->
+<!-- 				<value>classpath*:com/xplatform/base/*/*/mybatis/mapper/*.xml</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.xplatform.base.**.mybatis.dao" />
+		<property name="sqlSessionTemplateBeanName" value="sqlSession"></property>
+	</bean>
+
+	<!-- 事务管理器配置,单数据源事务 -->
+	<bean id="transactionManager_mybatis" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<aop:config>
+		<aop:pointcut expression="execution(* com.xplatform.base..service.*.*(..))" id="txAop_mybatis" />
+		<aop:advisor advice-ref="txAdvice_mybatis" pointcut-ref="txAop_mybatis" />
+	</aop:config>
+	<tx:advice id="txAdvice_mybatis" transaction-manager="transactionManager_mybatis">
+		<tx:attributes>
+			<!-- 让所有的方法都加入事务管理，为了提高效率，可以把一些查询之类的方法设置为只读的事务 -->
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+			<!-- 添加 -->
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<!-- 更新 -->
+			<tx:method name="change*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<!-- 删除 -->
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<!-- 移动 -->
+			<tx:method name="move*" propagation="REQUIRED" />
+			<!-- 复制 -->
+			<tx:method name="copy*" propagation="REQUIRED" />
+			<!-- 导入 -->
+			<tx:method name="import*" propagation="REQUIRED" />
+			<!-- 停止与激活 -->
+			<tx:method name="stop*" propagation="REQUIRED" />
+			<tx:method name="active*" propagation="REQUIRED" />
+			<!-- 执行 -->
+			<tx:method name="db*" propagation="REQUIRED" />
+			<tx:method name="execute*" propagation="REQUIRED" />
+			<!-- 发布 -->
+			<tx:method name="deploy*" propagation="REQUIRED" />
+			<!-- 取消 -->
+			<tx:method name="cancel*" propagation="REQUIRED" />
+			<!-- 批量操作 -->
+			<tx:method name="batch*" propagation="REQUIRED" />
+			<!-- 初始化操作 -->
+			<tx:method name="init*" propagation="REQUIRED" />
+			<!-- 同步操作 -->
+			<tx:method name="sync*" propagation="REQUIRED" />
+			<!-- 开始操作 -->
+			<tx:method name="start*" propagation="REQUIRED" />
+			<!-- 结束操作 -->
+			<tx:method name="end*" propagation="REQUIRED" />
+			<!-- 往下流转操作 -->
+			<tx:method name="next*" propagation="REQUIRED" />
+			<!-- 发送消息操作 -->
+			<tx:method name="send*" propagation="REQUIRED" />
+			<tx:method name="notify*" propagation="REQUIRED" />
+			<!-- 行为 -->
+			<tx:method name="do*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="idEntityDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.xplatform.base.framework.mybatis.dao.IdEntityDao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+</beans>

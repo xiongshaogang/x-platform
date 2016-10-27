@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xplatform.base.workflow.node.mybatis.dao.NodeUserMybatisDao">
+	<resultMap id="NodeUserMap" type="NodeUserVo">
+		<id column="id" property="id" />
+		<result column="setId" property="setId" />
+		<result column="defId" property="defId" />
+		<result column="nodeId" property="nodeId" />
+		<result column="nodeName" property="nodeName" />
+		<result column="assignIds" property="assignIds" />
+		<result column="assignNames" property="assignNames" />
+		<result column="assignType" property="assignType" />
+		<result column="assignTypeName" property="assignTypeName" />
+		<result column="countType" property="countType" />
+		<result column="countTypeName" property="countTypeName" />
+		<result column="flag" property="flag" />
+		<result column="funcType" property="funcType" />
+	</resultMap>
+	
+	<select id="queryNodeUserListByDefIdAndType" parameterType="Map" resultMap="NodeUserMap">
+		select ns.node_id nodeId,ns.node_name nodeName,ns.def_id defId,ns.id setId,
+			u.id id,u.assign_ids assignIds,u.assign_names assignNames,u.assign_type assignType ,u.assing_type_name assignTypeName,u.count_type countType,u.count_type_name countTypeName,
+			u.func_type funcType
+		from 
+			(select s.id,s.def_id,s.node_id,s.node_name 
+				from t_flow_node_set s
+				where s.def_id=#{defId} and s.set_type='0')ns
+		LEFT JOIN t_flow_node_user u on ns.node_id=u.node_id and ns.def_id=u.def_id
+		<if test="funcType != null">
+			and u.func_type=#{funcType}
+		</if> 
+	</select>
+	
+	<select id="queryNodeUserListByCondition" parameterType="Map" resultMap="NodeUserMap">
+		select u.id id,u.assign_ids assignIds,u.assign_names assignNames,u.assign_type assignType ,u.assing_type_name assignTypeName,u.count_type countType,u.count_type_name countTypeName,
+			u.func_type funcType,u.def_id defId,'true' as flag,u.node_id nodeId
+		from t_flow_node_user u
+		where 1=1
+		<if test="funcType != null">
+			and u.func_type=#{funcType}
+		</if> 
+		<if test="defId != null">
+			and u.def_id=#{defId}
+		</if> 
+		<if test="nodeId != null">
+			and u.node_id=#{nodeId}
+		</if>
+	</select>
+</mapper>

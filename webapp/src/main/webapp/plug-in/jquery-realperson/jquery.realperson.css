@@ -1,0 +1,49 @@
+/* Real Person jQuery plugin styles v1.1.1. */
+.realperson-challenge {
+	display: inline-block;
+	width:100px;
+	color: #000;
+	vertical-align: middle;
+}
+.realperson-text {
+	font-family: "Courier New",monospace;
+	font-size: 6px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	line-height: 2px;
+	color:#555;
+	display: inline-block;
+	cursor: pointer;
+}
+/* 针对webkit内核浏览器的hack，如chrome */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .realperson-text {
+		font-family: "Courier New",monospace;
+		font-size: 10px;
+		font-weight: 100;
+		letter-spacing: -5px;
+		line-height: 2px;
+		color:#555;
+	}
+}
+
+.realperson-regen {
+	display:inline-block;
+	margin-left:5px;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+	vertical-align:top;
+}
+.realperson-disabled {
+	opacity: 0.5;
+	filter: Alpha(Opacity=50);
+}
+.realperson-disabled .realperson-regen {
+	cursor: default;
+}
+
+.realperson-refresh{
+	margin-left: 5px;
+	cursor: pointer;
+}
