@@ -5,7 +5,6 @@
 	<artifactId>parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
 	<modules>
 		<module>../framework</module>
 		<module>../quick-develop</module>
@@ -14,7 +13,6 @@
 		<module>../workflow</module>
 		<module>../webapp</module>
 	</modules>
-
 	<!-- 发布到私有服务器配置 -->
 	<!-- <distributionManagement> -->
 	<!-- <repository> -->
@@ -28,18 +26,13 @@
 	<!-- <url>http://szucg.eicp.net:8081/nexus/content/repositories/ucg_snapshot/</url> -->
 	<!-- </snapshotRepository> -->
 	<!-- </distributionManagement> -->
-
-
-
 	<properties>
 		<!-- 主要依赖库的版本定义 -->
 		<spring.version>3.1.4.RELEASE</spring.version>
 		<hibernate.version>4.1.0.Final</hibernate.version>
-
 		<!-- 工作流 -->
 		<activiti.version>5.11</activiti.version>
 		<mybatis.version>3.1.1</mybatis.version>
-
 		<!-- 辅助依赖包 -->
 		<cglib.version>2.2</cglib.version>
 		<aspectj.version>1.6.9</aspectj.version>
@@ -48,7 +41,6 @@
 		<ant.version>1.6.5</ant.version>
 		<spring-jpa.versoin>2.0.8</spring-jpa.versoin>
 		<mybatis-spring.version>1.1.1</mybatis-spring.version>
-
 		<!-- 工具包 -->
 		<!-- <jackson.version>1.8.4</jackson.version> -->
 		<!-- <jackson2.version>2.1.2</jackson2.version> -->
@@ -82,8 +74,6 @@
 		<unoil.version>3.2.1</unoil.version>
 		<xwork-core.version>2.1.6</xwork-core.version>
 		<jurt.version>3.2.1</jurt.version>
-
-
 		<!-- 数据库组件包 -->
 		<commons-pool.version>1.6</commons-pool.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
@@ -100,7 +90,6 @@
 		<jtds.version>1.2.4</jtds.version>
 		<!-- postgresql -->
 		<postgresql.version>9.1-903.jdbc4</postgresql.version>
-
 		<!-- 测试依赖包 -->
 		<junit.version>4.7</junit.version>
 		<mockito.version>1.9.5</mockito.version>
@@ -124,7 +113,6 @@
 		<aopalliance.version>1.0</aopalliance.version>
 		<xstream.version>1.4.4</xstream.version>
 	</properties>
-
 	<repositories>
 		<!-- <repository> -->
 		<!-- <id>ucg_group</id> -->
@@ -186,7 +174,6 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
 	<dependencies>
 		<!-- activation -->
 		<dependency>
@@ -200,32 +187,11 @@
 			<artifactId>aopalliance</artifactId>
 			<version>${aopalliance.version}</version>
 		</dependency>
-
 		<!-- 自定义的依赖包 -->
 		<!-- <dependency> <groupId>org.jeecgframework</groupId> <artifactId>codegenerate</artifactId> 
 			<version>${codegenerate.version}</version> </dependency> <dependency> <groupId>org.jeecgframework</groupId> 
 			<artifactId>minidao</artifactId> <version>${minidao.version}</version> </dependency> -->
 		<!-- ckfinder -->
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>CKFinder-updateByAlexander</artifactId>
-			<version>${CKFinder.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>CKFinderPlugin-FileEditor</artifactId>
-			<version>${CKFinder.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>CKFinderPlugin-ImageResize</artifactId>
-			<version>${CKFinder.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>CKFinderPlugin-Watermark</artifactId>
-			<version>${CKFinder.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
@@ -235,32 +201,6 @@
 			<groupId>org.jboss</groupId>
 			<artifactId>jboss-vfs</artifactId>
 			<version>3.1.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ucg</groupId>
-			<artifactId>graph</artifactId>
-			<version>0.0.1-RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.artofsolving</groupId>
-			<artifactId>jodconverter</artifactId>
-			<version>${jodconverter.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>pinyin4j</groupId>
-			<artifactId>pinyin4j</artifactId>
-			<version>${pinyin4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>${ojdbc14.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jeecgframework</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${postgresql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -293,7 +233,6 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
@@ -309,7 +248,6 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -357,8 +295,6 @@
 			<artifactId>poi-scratchpad</artifactId>
 			<version>${poi-scratchpad.version}</version>
 		</dependency>
-
-
 		<!-- anltr -->
 		<dependency>
 			<groupId>org.antlr</groupId>
@@ -376,7 +312,6 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<!--工作流依赖包 -->
 		<dependency>
 			<groupId>org.activiti</groupId>
@@ -388,7 +323,6 @@
 			<artifactId>activiti-spring</artifactId>
 			<version>5.14</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -399,8 +333,6 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
 		</dependency>
-
-
 		<!-- 数据库相关依赖包 -->
 		<dependency>
 			<groupId>commons-pool</groupId>
@@ -420,17 +352,10 @@
 			<version>${druid.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jeecgframework</groupId>
-			<artifactId>jdbc2005</artifactId>
-			<version>${sqlserver.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -439,7 +364,6 @@
 			<version>${jtds.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
 		<!-- WEB begin -->
 		<!-- spring mvc -->
 		<dependency>
@@ -452,7 +376,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<!-- web依赖包 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -472,7 +395,6 @@
 			<version>1.2</version>
 		</dependency>
 		<!-- WEB end -->
-
 		<!-- 辅助依赖包 -->
 		<dependency>
 			<groupId>cglib</groupId>
@@ -537,9 +459,6 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.5.3</version>
 		</dependency>
-
-
-
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
@@ -587,7 +506,6 @@
 			<artifactId>classmate</artifactId>
 			<version>${classmate.version}</version>
 		</dependency>
-
 		<!-- commons-beanutils -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -700,7 +618,6 @@
 			<artifactId>hibernate-validator-annotation-processor</artifactId>
 			<version>${hibernate-validator.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.openoffice</groupId>
 			<artifactId>juh</artifactId>
@@ -721,7 +638,6 @@
 			<artifactId>unoil</artifactId>
 			<version>${unoil.version}</version>
 		</dependency>
-
 		<!-- TEST begin -->
 		<!-- junit -->
 		<dependency>
@@ -729,18 +645,11 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 		</dependency>
-
 		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
-		</dependency>
-		<!-- jacob -->
-		<dependency>
-			<groupId>org.jeecg</groupId>
-			<artifactId>jacob</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<!-- h2 -->
 		<dependency>
@@ -771,24 +680,23 @@
 			<version>0.9.1</version>
 		</dependency>
 		<!-- highchart 图片导出 -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jeecgframework</groupId> -->
-<!-- 			<artifactId>batik-all</artifactId> -->
-<!-- 			<version>1.6</version> -->
-<!-- 		</dependency> -->
-		<!-- SVG图形输出-->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jeecgframework</groupId> -->
+		<!-- <artifactId>batik-all</artifactId> -->
+		<!-- <version>1.6</version> -->
+		<!-- </dependency> -->
+		<!-- SVG图形输出 -->
 		<dependency>
 			<groupId>com.kenai.nbpwr</groupId>
 			<artifactId>org-apache-batik-all</artifactId>
 			<version>1.7-201003011305</version>
 		</dependency>
-		<!-- pdf图形输出-->
+		<!-- pdf图形输出 -->
 		<dependency>
-		    <groupId>org.apache.xmlgraphics</groupId>
-		    <artifactId>fop</artifactId>
-		    <version>2.1</version>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>2.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
@@ -826,9 +734,7 @@
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 		</dependency>
-
 		<!-- 快逸报表4特别使用 -->
-
 		<!-- <dependency> <groupId>com.runqian.app5</groupId> <artifactId>barcode</artifactId> 
 			<version>1.0</version> </dependency> <dependency> <groupId>com.runqian.report4</groupId> 
 			<artifactId>datetimeformat.</artifactId> <version>1.0</version> </dependency> 
@@ -845,12 +751,8 @@
 			<artifactId>report4</artifactId> <version>1.0</version> </dependency> <dependency> 
 			<groupId>com.runqian.app5</groupId> <artifactId>webutil</artifactId> <version>1.0</version> 
 			</dependency> -->
-
 		<!-- 快逸报表4特别使用结束 -->
-
-
 		<!-- 生成PDF关联包 -->
-
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
@@ -908,34 +810,23 @@
 		</dependency>
 		<!-- pdf -->
 		<!-- 生成PDF关联包 -->
-
 		<!-- httpclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.4.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
 			<version>4.4.1</version>
 		</dependency>
-
 		<!-- ftp上传相关 -->
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 			<version>3.3</version>
 		</dependency>
-
-		<!-- 发短信借口 -->
-		<dependency>
-			<groupId>com.ucg</groupId>
-			<artifactId>emayclient</artifactId>
-			<version>0.0.1-release</version>
-		</dependency>
-
 		<!-- zxing二维码 -->
 		<dependency>
 			<groupId>com.google.zxing</groupId>
@@ -947,14 +838,35 @@
 			<artifactId>javase</artifactId>
 			<version>3.2.1</version>
 		</dependency>
+		<!-- a copy of pinyin4j to central repository -->
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>${pinyin4j.version}</version>
+		</dependency>
+		<!-- jodconverter -->
+		<dependency>
+			<groupId>org.artofsolving.jodconverter</groupId>
+			<artifactId>jodconverter-core</artifactId>
+			<version>${jodconverter.version}</version>
+		</dependency>
 	</dependencies>
-
 	<organization>
-		<name>合创成长开发平台</name>
-		<url>www.ucg.org</url>
+		<name>x-platform</name>
+		<url>summer</url>
 	</organization>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
@@ -981,7 +893,7 @@
 					<wtpmanifest>true</wtpmanifest>
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>2.0</wtpversion>
-					<manifest>${basedir}/src/main/resources/META-INF/MANIFEST.MF
+					<manifest>${basedir}/src/main/resources/META-INF/MANIFEST.MF 
 					</manifest>
 				</configuration>
 			</plugin>
@@ -1001,7 +913,6 @@
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
-
 		<testResources>
 			<testResource>
 				<directory>src/test/java</directory>
@@ -1017,5 +928,4 @@
 			</testResource>
 		</testResources>
 	</build>
-
 </project>

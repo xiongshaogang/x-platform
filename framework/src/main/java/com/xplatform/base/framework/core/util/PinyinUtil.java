@@ -72,7 +72,7 @@ public class PinyinUtil {
 
 	public static String[] stringToPinyin(String src, boolean isPolyphone,
 
-	String separator) {
+			String separator) {
 
 		// 判断字符串是否为空
 
@@ -111,7 +111,7 @@ public class PinyinUtil {
 
 	public static String charToPinyin(char src, boolean isPolyphone,
 
-	String separator) {
+			String separator) {
 
 		// 创建汉语拼音处理类
 
@@ -135,7 +135,7 @@ public class PinyinUtil {
 
 				String[] strs = PinyinHelper.toHanyuPinyinStringArray(src,
 
-				defaultFormat);
+						defaultFormat);
 
 				// 是否查出多音字，默认是查出多音字的第一个字符
 
@@ -211,8 +211,7 @@ public class PinyinUtil {
 
 		try {
 
-			pinyingStr = PinyinHelper.toHanyuPinyinString(hanzi, defaultFormat,
-					separator);
+			pinyingStr = PinyinHelper.toHanYuPinyinString(hanzi, defaultFormat, separator);
 
 		} catch (BadHanyuPinyinOutputFormatCombination e) {
 
@@ -441,8 +440,7 @@ public class PinyinUtil {
 	 * @return
 	 */
 
-	public static String[] getHeadByString(String src, boolean isCapital,
-			String separator) {
+	public static String[] getHeadByString(String src, boolean isCapital, String separator) {
 
 		char[] chars = src.toCharArray();
 
@@ -559,7 +557,8 @@ public class PinyinUtil {
 		// 将字符串转换成字节序列
 		byte[] bGBK = cnStr.getBytes();
 		for (int i = 0; i < bGBK.length; i++) {
-			// com.xplatform.base.framework.core.util.LogUtil.info(Integer.toHexString(bGBK[i] & 0xff));
+			// com.xplatform.base.framework.core.util.LogUtil.info(Integer.toHexString(bGBK[i]
+			// & 0xff));
 			// 将每个字符转换成ASCII码
 			strBuf.append(Integer.toHexString(bGBK[i] & 0xff));
 		}
@@ -582,8 +581,7 @@ public class PinyinUtil {
 		for (int i = 0; i < nameChar.length; i++) {
 			if (nameChar[i] > 128) {
 				try {
-					pinyinName += PinyinHelper.toHanyuPinyinStringArray(
-							nameChar[i], defaultFormat)[0].charAt(0);
+					pinyinName += PinyinHelper.toHanyuPinyinStringArray(nameChar[i], defaultFormat)[0].charAt(0);
 				} catch (BadHanyuPinyinOutputFormatCombination e) {
 					e.printStackTrace();
 				}
@@ -610,8 +608,7 @@ public class PinyinUtil {
 		for (int i = 0; i < nameChar.length; i++) {
 			if (nameChar[i] > 128) {
 				try {
-					pinyinName += PinyinHelper.toHanyuPinyinStringArray(
-							nameChar[i], defaultFormat)[0];
+					pinyinName += PinyinHelper.toHanyuPinyinStringArray(nameChar[i], defaultFormat)[0];
 				} catch (BadHanyuPinyinOutputFormatCombination e) {
 					e.printStackTrace();
 				}
@@ -668,13 +665,11 @@ public class PinyinUtil {
 				// 是中文或者a-z或者A-Z转换拼音(我的需求，是保留中文或者a-z或者A-Z)
 				if (String.valueOf(c).matches("[\\u4E00-\\u9FA5]+")) {
 					try {
-						temp[i] = PinyinHelper.toHanyuPinyinStringArray(
-								srcChar[i], hanYuPinOutputFormat);
+						temp[i] = PinyinHelper.toHanyuPinyinStringArray(srcChar[i], hanYuPinOutputFormat);
 					} catch (BadHanyuPinyinOutputFormatCombination e) {
 						e.printStackTrace();
 					}
-				} else if (((int) c >= 65 && (int) c <= 90)
-						|| ((int) c >= 97 && (int) c <= 122)) {
+				} else if (((int) c >= 65 && (int) c <= 90) || ((int) c >= 97 && (int) c <= 122)) {
 					temp[i] = new String[] { String.valueOf(srcChar[i]) };
 				} else {
 					temp[i] = new String[] { "" };

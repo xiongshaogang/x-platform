@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -48,7 +52,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import com.xplatform.base.framework.core.annotation.JeecgEntityTitle;
@@ -63,9 +66,11 @@ import com.xplatform.base.framework.core.common.hibernate.qbc.PageList;
 import com.xplatform.base.framework.core.common.hibernate.qbc.PagerUtil;
 import com.xplatform.base.framework.core.common.model.common.DBTable;
 import com.xplatform.base.framework.core.common.model.common.UploadFile;
+import com.xplatform.base.framework.core.common.model.json.ComboTree;
 import com.xplatform.base.framework.core.common.model.json.DataGridReturn;
 import com.xplatform.base.framework.core.common.model.json.TreeGrid;
 import com.xplatform.base.framework.core.extend.template.DataSourceMap;
+import com.xplatform.base.framework.core.extend.template.Template;
 import com.xplatform.base.framework.core.util.MyBeanUtils;
 import com.xplatform.base.framework.core.util.ReflectHelper;
 import com.xplatform.base.framework.core.util.ToEntityUtil;
@@ -74,13 +79,6 @@ import com.xplatform.base.framework.tag.core.easyui.TagUtil;
 import com.xplatform.base.framework.tag.vo.datatable.DataTableReturn;
 import com.xplatform.base.framework.tag.vo.easyui.ComboTreeModel;
 import com.xplatform.base.framework.tag.vo.easyui.TreeGridModel;
-import com.xplatform.base.framework.core.common.model.json.ComboTree;
-import com.xplatform.base.framework.core.extend.template.Template;
-
-import java.lang.reflect.ParameterizedType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 /**
  * 
  * 类描述： DAO层泛型基类
@@ -1323,7 +1321,6 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 		return tree;
 	}
 
-	@Override
 	public List<TreeGrid> treegrid(List all, TreeGridModel treeGridModel, List<String> attributes) {
 		List<TreeGrid> treegrid = new ArrayList<TreeGrid>();
 		for (Object obj : all) {

@@ -3,8 +3,8 @@ package com.xplatform.base.workflow.core.facade.caculateuser.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hotent.core.util.StringUtil;
 import com.xplatform.base.framework.core.util.ApplicationContextUtil;
+import com.xplatform.base.framework.core.util.StringUtil;
 import com.xplatform.base.orgnaization.user.entity.UserEntity;
 import com.xplatform.base.platform.common.service.SysUserService;
 import com.xplatform.base.workflow.core.facade.caculateuser.NodeUserCalculate;

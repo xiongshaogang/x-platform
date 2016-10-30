@@ -1,4 +1,4 @@
-﻿package com.xplatform.base.framework.core.util.validcode;
+package com.xplatform.base.framework.core.util.validcode;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
