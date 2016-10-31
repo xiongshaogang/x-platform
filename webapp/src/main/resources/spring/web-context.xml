@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"  
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	 xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:p="http://www.springframework.org/schema/p"  
-	xmlns:context="http://www.springframework.org/schema/context"  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
 	default-autowire="byName" default-lazy-init="false">
-	<mvc:annotation-driven/>
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<import resource="spring-mvc-bean.xml" />
+	<import resource="spring-mvc-hibernate.xml" />
+	<import resource="spring-mvc-mybatis.xml" />
+	<import resource="spring-mvc-jms.xml" />
+	<import resource="spring-mvc-email.xml" />
+	<import resource="spring-mvc-aop.xml" />
+	<import resource="spring-mvc-activiti.xml" />
+	<import resource="spring-mvc-ehcache.xml" />
+	<import resource="spring-mvc-groovy.xml" />
+	
+	<mvc:annotation-driven />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
 	<!-- 加载controller的时候,不加载service,因为此时事物并未生效,若此时加载了service,那么事物无法对service进行拦截 -->
-	<context:component-scan base-package="com.xplatform.base.**.controller,com.ucg.oa.**.controller" />
-
+	<context:component-scan base-package="com.xplatform.base.**.controller" />
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
 	<bean id="mappingJackson2HttpMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<property name="objectMapper">
-			 <bean class="com.xplatform.base.framework.core.interceptors.HibernateObjectMapper"></bean>
+			<bean
+				class="com.xplatform.base.framework.core.interceptors.HibernateObjectMapper"></bean>
 		</property>
 		<property name="supportedMediaTypes">
 			<list>
 				<value>application/json;charset=UTF-8</value>
-                <value>text/html;charset=UTF-8</value>
-                <value>text/plain;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+				<value>text/plain;charset=UTF-8</value>
 			</list>
 		</property>
 	</bean>
@@ -70,8 +79,9 @@
 		<property name="dbType" value="${jdbc.dbType}" />
 	</bean>
 	<!-- 异常处理类 -->
-<!-- 	<bean id="exceptionHandler" -->
-<!-- 		class="com.xplatform.base.framework.core.common.exception.MyExceptionHandler" /> -->
+	<!-- <bean id="exceptionHandler" -->
+	<!-- class="com.xplatform.base.framework.core.common.exception.MyExceptionHandler" 
+		/> -->
 	<!-- 系统错误转发配置[并记录错误日志] -->
 	<bean
 		class="com.xplatform.base.framework.core.common.exception.CustomSimpleMappingExceptionResolver">
@@ -85,12 +95,14 @@
 		<property name="exceptionMappings">
 			<props>
 				<!-- 这里你可以根据需要定义N多个错误异常转发 -->
-				<!-- <prop key="java.sql.SQLException">dbError</prop> 数据库错误(dbError.jsp)
-				<prop key="org.springframework.web.bind.ServletRequestBindingException">bizError</prop> 参数绑定错误(如：必须参数没传递)(bizError.jsp)
-				<prop key="java.lang.IllegalArgumentException">bizError</prop>  参数错误(bizError.jsp)
-				<prop key="org.springframework.validation.BindException">bizError</prop>  参数类型有误(bizError.jsp) -->
+				<!-- <prop key="java.sql.SQLException">dbError</prop> 数据库错误(dbError.jsp) 
+					<prop key="org.springframework.web.bind.ServletRequestBindingException">bizError</prop> 
+					参数绑定错误(如：必须参数没传递)(bizError.jsp) <prop key="java.lang.IllegalArgumentException">bizError</prop> 
+					参数错误(bizError.jsp) <prop key="org.springframework.validation.BindException">bizError</prop> 
+					参数类型有误(bizError.jsp) -->
 				<prop key="java.lang.Exception">error-500</prop>  <!-- 其他错误为'未定义错误'(unknowError.jsp) -->
-				<prop key="com.xplatform.base.framework.core.common.exception.BusinessException">error-500</prop> 
+				<prop
+					key="com.xplatform.base.framework.core.common.exception.BusinessException">error-500</prop>
 			</props>
 		</property>
 	</bean>
@@ -98,11 +110,13 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="com.xplatform.base.framework.core.interceptors.EncodingInterceptor" />
+			<bean
+				class="com.xplatform.base.framework.core.interceptors.EncodingInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="com.xplatform.base.platform.common.intercepter.AuthInterceptor">
+			<bean
+				class="com.xplatform.base.platform.common.intercepter.AuthInterceptor">
 				<property name="excludeUrls">
 					<list>
 						<value>loginController.do?register</value>
@@ -114,12 +128,10 @@
 						<value>loginController.do?findSysParameterCode</value>
 						<value>loginController.do?downloadApp</value>
 						<value>appVersonController.do?downloadAppFile</value>
-						
 						<value>userController.do?sendVerifyCode</value>
 						<value>appFormTableController.do?test</value>
 						<value>appFormTableController.do?goTest</value>
 						<value>appFormTableController.do?saveOrUpdate</value>
-						
 						<value>pdfController.do?pdfView</value>
 						<value>messageController.do?testSend</value>
 						<value>loginController.do?queryChallenge</value>
@@ -144,8 +156,6 @@
 	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
 	<!-- <mvc:resources mapping="/images/**" location="/images/"/> -->
 	<!-- <mvc:resources mapping="/css/**" location="/css/"/> -->
-
-	<!-- 智能表单配置引入
-	<import resource="classpath*:com/ucg/base/develop/cgform/common/spring-mvc-cgform.xml" />
-	-->
+	<!-- 智能表单配置引入 <import resource="classpath*:com/ucg/base/develop/cgform/common/spring-mvc-cgform.xml" 
+		/> -->
 </beans>

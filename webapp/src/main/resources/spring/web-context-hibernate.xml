@@ -121,7 +121,7 @@
 	 -->
 	<aop:aspectj-autoproxy />
 	<aop:config>
-		<aop:pointcut expression="execution(* com.xplatform.base..service.*.*(..)) or execution(* com.ucg.oa..service.*.*(..))" id="txAop" />
+		<aop:pointcut expression="execution(* com.xplatform.base..service.*.*(..))" id="txAop" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txAop" />
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">

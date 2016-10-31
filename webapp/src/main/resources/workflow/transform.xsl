@@ -294,7 +294,7 @@
 					</userTask>
 				</xsl:when>
 				<xsl:when test="@script='true'">
-					<serviceTask activiti:class="com.ucg.platform.service.bpm.ScriptTask">
+					<serviceTask activiti:class="com.xplatform.platform.service.bpm.ScriptTask">
 						<xsl:call-template name="setAttrubute">
 							<xsl:with-param name="obj" select="."></xsl:with-param>
 						</xsl:call-template>
@@ -308,7 +308,7 @@
 				</xsl:when>
 
 				<xsl:when test="@mail='true'">
-					<serviceTask activiti:class="com.ucg.platform.service.bpm.MessageTask">
+					<serviceTask activiti:class="com.xplatform.platform.service.bpm.MessageTask">
 						<xsl:call-template name="setAttrubute">
 							<xsl:with-param name="obj" select="."></xsl:with-param>
 						</xsl:call-template>
@@ -321,7 +321,7 @@
 					</serviceTask>
 				</xsl:when>
 				<xsl:when test="@webService='true'">
-					<serviceTask activiti:class="com.ucg.platform.service.bpm.WebServiceTask">
+					<serviceTask activiti:class="com.xplatform.platform.service.bpm.WebServiceTask">
 						<xsl:call-template name="setAttrubute">
 							<xsl:with-param name="obj" select="."></xsl:with-param>
 						</xsl:call-template>

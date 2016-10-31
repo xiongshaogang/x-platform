@@ -13,7 +13,7 @@
 	<bean id="logAspect" class="com.xplatform.base.system.log.aop.LogAspect"></bean>
 	<aop:config>
 		<aop:aspect id="logExecute" ref="logAspect">
-			<aop:pointcut expression="execution(* com.xplatform.base..controller.*.*(..)) or execution(* com.ucg.oa..controller.*.*(..))" id="logPointcut"/>
+			<aop:pointcut expression="execution(* com.xplatform.base..controller.*.*(..))" id="logPointcut"/>
 			<aop:around pointcut-ref="logPointcut" method="doAudit"/>
 			<aop:after-throwing pointcut-ref="logPointcut" throwing="ex" method="doThrowing"/>
 		</aop:aspect>

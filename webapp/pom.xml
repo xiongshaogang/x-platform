@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.ucg</groupId>
+		<groupId>com.xplatform</groupId>
 		<artifactId>parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
@@ -12,27 +12,27 @@
 	<name>webapp Maven Webapp</name>
 	<dependencies>
 		<dependency>
-			<groupId>com.ucg</groupId>
+			<groupId>com.xplatform</groupId>
 			<artifactId>framework</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ucg</groupId>
+			<groupId>com.xplatform</groupId>
 			<artifactId>quick-develop</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ucg</groupId>
+			<groupId>com.xplatform</groupId>
 			<artifactId>platform</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ucg</groupId>
+			<groupId>com.xplatform</groupId>
 			<artifactId>easypoi</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ucg</groupId>
+			<groupId>com.xplatform</groupId>
 			<artifactId>workflow</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

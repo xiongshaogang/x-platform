@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-4.0.xsd
+    ">
+	<!-- redis连接池的配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="testOnBorrow" value="true" />
+		<property name="blockWhenExhausted" value="true" />
+	</bean>
+	<!-- redis的连接池pool，不是必选项：timeout/password -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1" value="${redis.address}" />
+		<constructor-arg index="2" value="${redis.port}" type="int" />
+		<constructor-arg index="3" value="${redis.timeout}"
+			type="int" />
+		<constructor-arg index="4" value="${redis.password}" />
+	</bean>
+	<bean id="jedisTemplate" class="cn.com.chengyisheng.comon.jedis.JedisTemplate">
+		<property name="jedisPool" ref="jedisPool" />
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="cn.aidee.jdoctor.message.util.TokenUtil.setJedisPool" />
+		<property name="arguments">
+			<list>
+				<ref bean="jedisPool" />
+			</list>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="cn.aidee.jdoctor.message.qrcode.QrcodeUtils.setJedisTemplate"></property>
+		<property name="arguments">
+			<list>
+				<ref bean="jedisTemplate" />
+			</list>
+		</property>
+	</bean>
+	<beans>
+		<bean
+			class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+			<property name="maxInactiveIntervalInSeconds" value="7200"></property>
+			<property name="httpSessionStrategy" ref="cookieHttpSessionStrategy"></property>
+		</bean>
+		<bean
+			class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+			<property name="poolConfig" ref="jedisPoolConfig" />
+			<property name="hostName" value="${redis.address}" />
+			<property name="port" value="${redis.port}" />
+			<property name="timeout" value="${redis.timeout}" />
+			<property name="password" value="${redis.password}" />
+			<property name="database" value="1" />
+		</bean>
+		<bean id="defaultCookieSerializer"
+			class="org.springframework.session.web.http.DefaultCookieSerializer">
+			<property name="cookiePath" value="/" />
+		</bean>
+		<bean id="cookieHttpSessionStrategy"
+			class="org.springframework.session.web.http.CookieHttpSessionStrategy">
+			<property name="cookieSerializer" ref="defaultCookieSerializer" />
+		</bean>
+		<util:constant
+			static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP" />
+	</beans>
+</beans:beans>

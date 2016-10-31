@@ -529,13 +529,13 @@ public class BpmUtil {
 					String attribute = procEl.attributeValue("class");
 					if (attribute != null) {
 						if (attribute
-								.equals("com.ucg.platform.service.bpm.MessageTask")) {
+								.equals("com.xplatform.platform.service.bpm.MessageTask")) {
 							type = "email";
 						} else if (attribute
-								.equals("com.ucg.platform.service.bpm.ScriptTask")) {
+								.equals("com.xplatform.platform.service.bpm.ScriptTask")) {
 							type = "script";
 						} else if (attribute
-								.equals("com.ucg.platform.service.bpm.WebServiceTask")) {
+								.equals("com.xplatform.platform.service.bpm.WebServiceTask")) {
 							type = "webService";
 						}
 					}

@@ -3,13 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-	<groupId>com.ucg</groupId>
+	<groupId>com.xplatform</groupId>
 	<artifactId>parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<relativePath>../parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>com.ucg</groupId>
+  <groupId>com.xplatform</groupId>
   <artifactId>workflow</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -23,7 +23,7 @@
 
   <dependencies>
   	<dependency>
-      <groupId>com.ucg</groupId>
+      <groupId>com.xplatform</groupId>
       <artifactId>platform</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
