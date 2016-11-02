@@ -3,22 +3,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
 	default-autowire="byName" default-lazy-init="false">
-	
-	<import resource="spring-mvc-bean.xml" />
-	<import resource="spring-mvc-hibernate.xml" />
-	<import resource="spring-mvc-mybatis.xml" />
-	<import resource="spring-mvc-jms.xml" />
-	<import resource="spring-mvc-email.xml" />
-	<import resource="spring-mvc-aop.xml" />
-	<import resource="spring-mvc-activiti.xml" />
-	<import resource="spring-mvc-ehcache.xml" />
-	<import resource="spring-mvc-groovy.xml" />
-	
+	<import resource="web-context-bean.xml" />
+	<import resource="web-context-hibernate.xml" />
+	<import resource="web-context-mybatis.xml" />
+	<import resource="web-context-jms.xml" />
+	<import resource="web-context-email.xml" />
+	<import resource="web-context-aop.xml" />
+	<import resource="web-context-activiti.xml" />
+	<import resource="web-context-ehcache.xml" />
+	<import resource="web-context-groovy.xml" />
 	<mvc:annotation-driven />
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
@@ -156,6 +154,6 @@
 	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
 	<!-- <mvc:resources mapping="/images/**" location="/images/"/> -->
 	<!-- <mvc:resources mapping="/css/**" location="/css/"/> -->
-	<!-- 智能表单配置引入 <import resource="classpath*:com/ucg/base/develop/cgform/common/spring-mvc-cgform.xml" 
+	<!-- 智能表单配置引入 <import resource="classpath*:com/ucg/base/develop/cgform/common/web-context-cgform.xml" 
 		/> -->
 </beans>

@@ -115,7 +115,7 @@ public class CodeResourceUtil {
 	}
 
 	public static final String getDIVER_NAME() {
-		return bundle.getString("diver_name");
+		return bundle.getString("diver.name");
 	}
 
 	public static final String getURL() {
@@ -131,7 +131,7 @@ public class CodeResourceUtil {
 	}
 
 	public static final String getDATABASE_NAME() {
-		return bundle.getString("database_name");
+		return bundle.getString("database.name");
 	}
 
 	public static final boolean getJEECG_FILED_CONVERT() {

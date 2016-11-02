@@ -78,7 +78,7 @@ public class Identities {
 		
 		
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
-		Resource resource = resourceLoader.getResource("dbconfig.properties");
+		Resource resource = resourceLoader.getResource("sysConfig.properties");
 		Properties props =null;
 		String dbType  ="oracle";
 		try {
@@ -108,12 +108,12 @@ public class Identities {
 	public static String getNextId(){
 		String id =null;
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
-		Resource resource = resourceLoader.getResource("dbconfig.properties");
+		Resource resource = resourceLoader.getResource("sysConfig.properties");
 		Properties props =null;
 		String idType  =null;
 		try {
 			props = PropertiesLoaderUtils.loadProperties(resource);
-			idType = props.getProperty("id_generator_type");
+			idType = props.getProperty("id.generator.type");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

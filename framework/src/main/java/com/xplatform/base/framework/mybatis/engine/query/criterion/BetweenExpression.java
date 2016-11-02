@@ -25,8 +25,6 @@
 package com.xplatform.base.framework.mybatis.engine.query.criterion;
 
 
-import sun.awt.AppContext;
-
 import com.xplatform.base.framework.core.common.exception.BusinessRuntimeException;
 import com.xplatform.base.framework.core.constant.AppConstant;
 import com.xplatform.base.framework.core.util.StringUtil;

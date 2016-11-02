@@ -3,21 +3,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
-           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
 	default-autowire="byName" default-lazy-init="false">
 	<!-- 自动扫描dao和service包(自动注入) -->
 	<context:component-scan base-package="com.xplatform.base.**.aop" />
 	<context:component-scan base-package="com.xplatform.base.**.dao.impl" />
 	<context:component-scan base-package="com.xplatform.base.**.service.impl" />
 	<context:component-scan base-package="com.xplatform.base.**.service" />
-
+	e
 	<!-- 引入属性文件 -->
-	<context:property-placeholder location="classpath:dbconfig.properties" />
+	<context:property-placeholder location="classpath:sysConfig.properties" />
 	<!-- 配置数据源1 -->
 	<bean name="dataSource_pool" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -40,19 +40,16 @@
 		<property name="testOnBorrow" value="false" />
 		<property name="testOnReturn" value="false" />
 		<property name="testWhileIdle" value="true" />
-
 		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
 		<property name="timeBetweenEvictionRunsMillis" value="60000" />
 		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
 		<property name="minEvictableIdleTimeMillis" value="25200000" />
-
 		<!-- 打开removeAbandoned功能 -->
 		<property name="removeAbandoned" value="true" />
 		<!-- 1800秒，也就是30分钟 -->
 		<property name="removeAbandonedTimeout" value="1800" />
 		<!-- 关闭abanded连接时输出错误日志 -->
 		<property name="logAbandoned" value="true" />
-
 		<!-- 开启Druid的监控统计功能 -->
 		<property name="filters" value="stat" />
 		<!--<property name="filters" value="mergeStat" /> -->
@@ -63,12 +60,12 @@
 			</props>
 		</property>
 	</bean>
-
 	<!-- 数据源集合 -->
 	<bean id="dataSource"
 		class="com.xplatform.base.framework.core.extend.datasource.DynamicDataSource">
 		<property name="targetDataSources">
-			<map key-type="com.xplatform.base.framework.core.extend.datasource.DataSourceType">
+			<map
+				key-type="com.xplatform.base.framework.core.extend.datasource.DataSourceType">
 				<entry key="dataSource_pool" value-ref="dataSource_pool" />
 				<!-- <entry key="mapdataSource" value-ref="mapdataSource" /> -->
 			</map>
@@ -96,38 +93,33 @@
 			</list>
 		</property>
 	</bean>
-
-
 	<!-- JDBC配置 -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
 	</bean>
-
 	<!-- JDBC配置 -->
 	<bean id="namedParameterJdbcTemplate"
 		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg ref="dataSource" />
 	</bean>
-
 	<!-- 配置事物管理器，在*ServiceImpl里写@Transactional就可以启用事物管理 -->
 	<bean name="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<!-- 
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
 	<aop:aspectj-autoproxy />
 	<aop:config>
-		<aop:pointcut expression="execution(* com.xplatform.base..service.*.*(..))" id="txAop" />
+		<aop:pointcut expression="execution(* com.xplatform.base..service.*.*(..))"
+			id="txAop" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txAop" />
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-		    <!-- 让所有的方法都加入事务管理，为了提高效率，可以把一些查询之类的方法设置为只读的事务 -->
-			<tx:method name="*" propagation="REQUIRED" read-only="true"/>
+			<!-- 让所有的方法都加入事务管理，为了提高效率，可以把一些查询之类的方法设置为只读的事务 -->
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
 			<!-- 添加 -->
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="add*" propagation="REQUIRED" />
@@ -173,8 +165,6 @@
 			<tx:method name="do*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
-	
-
 	<!-- JSR303 Validator定义 -->
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />

@@ -15,10 +15,6 @@
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-mvc-context.xml</param-value>
-	</context-param>
 	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
@@ -69,6 +65,10 @@
 		<description>spring监听器</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:spring/web-context.xml</param-value>
+	</context-param>
 	<listener>
 		<description>Introspector缓存清除监听器</description>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
@@ -77,13 +77,10 @@
 		<description>request监听器</description>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-	
-
 	<!-- 在线用户监听器 add by duanql 20130607 -->
 	<listener>
 		<listener-class>com.xplatform.base.platform.common.listener.OnlineListener</listener-class>
 	</listener>
-
 	<servlet>
 		<description>spring mvc servlet</description>
 		<servlet-name>springMvc</servlet-name>
@@ -91,7 +88,7 @@
 		<init-param>
 			<description>spring mvc 配置文件</description>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring-mvc.xml</param-value>
+			<param-value>classpath*:spring/web-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -115,7 +112,7 @@
 		<init-param>
 			<description>spring mvc 配置文件</description>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring-mvc.xml</param-value>
+			<param-value>classpath*:spring/web-context.xml</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -127,8 +124,6 @@
 		<servlet-name>druidStatView</servlet-name>
 		<url-pattern>/webpage/system/druid/*</url-pattern>
 	</servlet-mapping>
-	
-	
 	<servlet>
 		<servlet-name>bpmImageServlet</servlet-name>
 		<servlet-class>com.xplatform.base.workflow.core.bpm.servlet.BpmImageServlet</servlet-class>
@@ -137,30 +132,17 @@
 		<servlet-name>bpmImageServlet</servlet-name>
 		<url-pattern>/bpmImage</url-pattern>
 	</servlet-mapping>
-
-<!-- websocket -->
-<!-- 
-   <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>MyWebSocketServlet</servlet-name>
-    <servlet-class>com.xplatform.base.system.message.config.controller.MyWebSocketServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>MyWebSocketServlet</servlet-name>
-    <url-pattern>/servlet/MyWebSocketServlet</url-pattern>
-  </servlet-mapping> -->
-	
+	<!-- websocket -->
+	<!-- <servlet> <description>This is the description of my J2EE component</description> 
+		<display-name>This is the display name of my J2EE component</display-name> 
+		<servlet-name>MyWebSocketServlet</servlet-name> <servlet-class>com.xplatform.base.system.message.config.controller.MyWebSocketServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>MyWebSocketServlet</servlet-name> 
+		<url-pattern>/servlet/MyWebSocketServlet</url-pattern> </servlet-mapping> -->
 	<!-- ckfinder配置 END -->
-
 	<!-- session超时设置30分钟 add by zhoujunfeng 20130830 -->
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
 	<!-- session超时设置30分钟 add by zhoujunfeng 20130830 -->
-	<!-- <welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list> -->
-
+	<!-- <welcome-file-list> <welcome-file>index.jsp</welcome-file> </welcome-file-list> -->
 </web-app>
